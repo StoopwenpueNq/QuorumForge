@@ -25,3 +25,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
   without the original inputs.
 - The council viewer: an ANSI renderer and a self-contained HTML page.
 
+## [0.8.0] - 2024-06-25
+
+### Added
+
