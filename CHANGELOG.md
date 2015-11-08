@@ -29,3 +29,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ### Added
 
+- Contradiction weighting: each claim carries the support and contradiction it
+  survived, and the verdict names both.
+
+## [0.7.0] - 2023-05-23
+
