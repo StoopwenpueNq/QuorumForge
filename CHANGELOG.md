@@ -34,3 +34,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [0.7.0] - 2023-05-23
 
+### Added
+
+- The adjudication pass: normalize, weigh, then render a verdict per claim.
+- JSON report with fixed key order and stable finding names.
+
