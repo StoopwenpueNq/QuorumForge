@@ -48,3 +48,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 
 ## [0.5.0] - 2020-12-01
 
+### Added
+
+- The minimal JSON codec, kept dependency-free so verdicts reproduce anywhere.
+- Line numbers on every parse error instead of aborting the run.
+
