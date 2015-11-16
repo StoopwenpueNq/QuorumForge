@@ -44,3 +44,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Added
 
 - Claim normalization rules with strict validation for ids and sources.
+- `adjudicate` subcommand and the first report shape.
+
+## [0.5.0] - 2020-12-01
+
