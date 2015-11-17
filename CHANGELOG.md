@@ -58,3 +58,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Added
 
 - Claim model with support and contradiction lists.
+- Deterministic ordering for every list in the report.
+
+## [0.3.0] - 2017-12-12
+
+### Added
