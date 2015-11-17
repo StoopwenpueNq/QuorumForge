@@ -53,3 +53,8 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - The minimal JSON codec, kept dependency-free so verdicts reproduce anywhere.
 - Line numbers on every parse error instead of aborting the run.
 
+## [0.4.0] - 2019-02-26
+
+### Added
+
+- Claim model with support and contradiction lists.
