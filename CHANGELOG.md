@@ -63,3 +63,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ## [0.3.0] - 2017-12-12
 
 ### Added
+
+- Parser for the deliberation format, one record per line.
+- `version` subcommand and the first output shape.
+
