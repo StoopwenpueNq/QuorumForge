@@ -7,3 +7,5 @@ description = "A multi-agent evidence adjudication engine: normalize claims, wei
 license = "MIT"
 readme = "README.md"
 repository = "https://github.com/StoopwenpueNq/QuorumForge"
+keywords = ["evidence", "adjudication", "consensus", "cli", "reasoning"]
+categories = ["command-line-utilities", "text-processing"]
