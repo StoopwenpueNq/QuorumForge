@@ -17,3 +17,5 @@ categories = ["command-line-utilities", "text-processing"]
 [lib]
 name = "quorumforge"
 path = "src/lib.rs"
+
+[[bin]]
