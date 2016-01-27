@@ -19,3 +19,5 @@ name = "quorumforge"
 path = "src/lib.rs"
 
 [[bin]]
+name = "quorumforge"
+path = "src/bin/quorumforge.rs"
