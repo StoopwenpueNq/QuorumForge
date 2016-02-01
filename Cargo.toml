@@ -21,3 +21,5 @@ path = "src/lib.rs"
 [[bin]]
 name = "quorumforge"
 path = "src/bin/quorumforge.rs"
+
+[profile.release]
