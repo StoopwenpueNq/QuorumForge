@@ -9,3 +9,8 @@
 #   make clean     remove build artifacts
 
 CARGO ?= cargo
+NODE  ?= node
+NPM   ?= npm
+
+SAMPLE_QF   := samples/cache-coherence.qf
+SAMPLE_JSON := samples/migration-strategy.json
