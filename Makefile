@@ -14,3 +14,7 @@ NPM   ?= npm
 
 SAMPLE_QF   := samples/cache-coherence.qf
 SAMPLE_JSON := samples/migration-strategy.json
+
+.DEFAULT_GOAL := help
+
+.PHONY: help
