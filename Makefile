@@ -23,3 +23,7 @@ help:
 	@echo "  build         build the release engine and the viewer"
 	@echo "  build-rust    build the Rust engine (release)"
 	@echo "  build-viewer  install + compile the TypeScript viewer"
+	@echo "  test          run all Rust and viewer tests"
+	@echo "  test-rust     run the Rust test suite (incl. doctests)"
+	@echo "  test-viewer   run the viewer test suite"
+	@echo "  demo          adjudicate the samples and render via the viewer"
