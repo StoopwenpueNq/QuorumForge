@@ -45,3 +45,7 @@ build-viewer:
 .PHONY: test
 test: test-rust test-viewer
 
+.PHONY: test-rust
+test-rust:
+	$(CARGO) test
+
