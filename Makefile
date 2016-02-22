@@ -40,3 +40,8 @@ build-rust:
 
 .PHONY: build-viewer
 build-viewer:
+	cd viewer && $(NPM) install --no-audit --no-fund && $(NPM) run build
+
+.PHONY: test
+test: test-rust test-viewer
+
