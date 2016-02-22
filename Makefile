@@ -49,3 +49,7 @@ test: test-rust test-viewer
 test-rust:
 	$(CARGO) test
 
+.PHONY: test-viewer
+test-viewer:
+	cd viewer && $(NPM) install --no-audit --no-fund && $(NPM) test
+
