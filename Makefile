@@ -53,3 +53,8 @@ test-rust:
 test-viewer:
 	cd viewer && $(NPM) install --no-audit --no-fund && $(NPM) test
 
+.PHONY: demo
+demo: build
+	@echo "== text report =="
+	$(CARGO) run --release -- adjudicate $(SAMPLE_QF)
+	@echo "== JSON report piped through the viewer =="
