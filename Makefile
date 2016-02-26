@@ -58,3 +58,7 @@ demo: build
 	@echo "== text report =="
 	$(CARGO) run --release -- adjudicate $(SAMPLE_QF)
 	@echo "== JSON report piped through the viewer =="
+	$(CARGO) run --release -- adjudicate --format json $(SAMPLE_JSON) | $(NODE) viewer/dist/cli.js -
+
+.PHONY: bundle
+bundle: build-rust
