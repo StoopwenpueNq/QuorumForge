@@ -37,3 +37,16 @@ You can commit a verdict to version control and diff it next week.
 
 ## Why a prism?
 
+White light looks like a single, undifferentiated thing until a prism teases it
+apart. A pile of agent opinions is the same: it *feels* like noise until you
+separate it by direction and strength. QuorumForge's prism has exactly four
+exit angles, and every claim leaves through exactly one of them.
+
+| Band | Glyph | What it means |
+|------|:-----:|---------------|
+| **Consensus**   | ◆ | Strong agreement with little dissent. Affirmed or negated. |
+| **Split**       | ◈ | A real lean, but below the consensus bar. Not yet settled. |
+| **Contested**   | ▲ | Meaningful weight on *both* sides. The council is divided. |
+| **Unsupported** | ○ | Too little decisive weight to conclude anything at all. |
+
+The "unsupported" band is not a failure mode — it is a finding. Knowing that a
