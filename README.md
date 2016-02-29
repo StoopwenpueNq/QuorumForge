@@ -50,3 +50,16 @@ exit angles, and every claim leaves through exactly one of them.
 | **Unsupported** | ○ | Too little decisive weight to conclude anything at all. |
 
 The "unsupported" band is not a failure mode — it is a finding. Knowing that a
+claim has *no* backing is often as valuable as knowing it is true.
+
+---
+
+## Anatomy of the light
+
+QuorumForge is a small, sharp, mixed-language toolkit with no third-party
+dependencies on either side of the fence.
+
+```
+quorumforge/
+├── src/                      Rust core + CLI (std library only)
+│   ├── lib.rs                public API and the end-to-end `run`
