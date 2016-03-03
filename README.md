@@ -88,3 +88,16 @@ pulls in a runtime dependency — the Rust crate is standard-library-only, and t
 viewer's sole `devDependency` is the TypeScript compiler itself.
 
 ---
+
+## Quick start
+
+You need a Rust toolchain (1.74+) for the engine and Node.js (18+) plus npm for
+the optional viewer. Nothing else.
+
+```sh
+# 1. Build and test the Rust engine.
+cargo build --release
+cargo test
+
+# 2. Adjudicate a sample deliberation as a console report.
+cargo run --release -- adjudicate samples/cache-coherence.qf
