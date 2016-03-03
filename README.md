@@ -75,3 +75,16 @@ quorumforge/
 ├── viewer/                   TypeScript council viewer (dependency-light)
 │   └── src/                  report model, ANSI + HTML renderers, CLI, tests
 ├── samples/                  rich sample deliberations (.qf and .json)
+├── docs/
+│   ├── EVIDENCE.md           the normative input-format reference
+│   └── assets/               the two animated SVGs on this page
+├── Cargo.toml   Makefile   LICENSE   CHANGELOG.md   .gitignore
+└── .github/workflows/ci.yml
+```
+
+Two languages, one contract: the Rust core emits a `quorumforge.report.v1` JSON
+document, and the TypeScript viewer consumes exactly that schema. Neither side
+pulls in a runtime dependency — the Rust crate is standard-library-only, and the
+viewer's sole `devDependency` is the TypeScript compiler itself.
+
+---
