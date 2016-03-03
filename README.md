@@ -114,3 +114,16 @@ Question: Is the distributed write-back cache coherent under concurrent
 Claims: 5   Consensus: 1   Contested: 1   Split: 2   Unsupported: 1
 Council cohesion: 60.1%   Policy: consensus>=0.66, dissent<0.34
 ------------------------------------------------------------------------
+[=] [c1] Writes to a single key are linearizable.
+     consensus/affirmed topic=linearizability  polarity=+1.00  mass=4.33  ...
+[!] [c2] Writes across multiple keys are linearizable.
+     contested/negated topic=linearizability  polarity=-0.24  ...
+     dissenting: ada, boro
+...
+```
+
+---
+
+## The council viewer
+
+The prism is prettiest when you let the viewer render it. Build it once, then
