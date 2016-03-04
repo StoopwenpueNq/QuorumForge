@@ -140,3 +140,16 @@ cd ..
 cargo run --release -- adjudicate --format json samples/cache-coherence.qf \
   | node viewer/dist/cli.js -
 
+# Or produce a standalone, self-contained HTML council page.
+cargo run --release -- adjudicate --format json samples/migration-strategy.json \
+  | node viewer/dist/cli.js --html - -o council.html
+```
+
+The console renderer draws unicode influence meters and colour-codes each
+verdict band. The HTML renderer emits a single file with **all** styling inlined
+— no remote fonts, scripts, or images — so it opens offline and can be committed
+as an artifact.
+
+```sh
+# Run the viewer's own test suite.
+cd viewer && npm test
