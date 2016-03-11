@@ -153,3 +153,16 @@ as an artifact.
 ```sh
 # Run the viewer's own test suite.
 cd viewer && npm test
+```
+
+---
+
+## The command-line tool
+
+```text
+quorumforge <command> [options] <evidence-file | ->
+
+COMMANDS
+  adjudicate   Parse, normalize, and print a verdict report (text or json).
+  bundle       Emit a deterministic, digest-stamped evidence bundle (JSON).
+  verify       Re-derive a bundle's digest from its body and confirm it.
