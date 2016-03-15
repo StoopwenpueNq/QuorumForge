@@ -179,3 +179,15 @@ OPTIONS
 ```
 
 ### Real invocations
+
+```sh
+# Text report from a line-oriented file.
+cargo run -- adjudicate samples/cache-coherence.qf
+
+# JSON report from a JSON deliberation.
+cargo run -- adjudicate --format json samples/migration-strategy.json
+
+# See how claim normalization collapses hedged variants.
+cargo run -- inspect samples/normalization.qf
+
+# Build a deterministic bundle and verify its integrity digest.
