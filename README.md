@@ -204,3 +204,16 @@ cargo run -- adjudicate --consensus 0.3 --dissent 0.5 samples/cache-coherence.qf
 Exit codes: `0` success, `2` usage error, `3` parse/validation error, `4` a
 `verify` digest mismatch. These make QuorumForge friendly to shell pipelines and
 CI gates.
+
+---
+
+## How the prism actually bends light
+
+The scoring model is deliberately simple enough to reproduce with a pocket
+calculator. Every non-abstaining position casts a **signed vote**:
+
+```
+vote = sign(stance) · agent_weight · confidence
+```
+
+with `sign(support) = +1` and `sign(contradict) = −1`. Confidence is clamped to
