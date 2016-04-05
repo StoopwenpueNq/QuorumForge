@@ -256,3 +256,16 @@ polarity      = (1.20 − 0.60) / 1.80 = +0.333
 dissent_ratio = 0.60 / 1.80           =  0.333
 ```
 
+Under the default policy (`consensus_threshold = 0.66`, `dissent_ceiling =
+0.34`): `dissent_ratio 0.333 < 0.34`, so it is not contested; `|polarity| 0.333
+< 0.66`, so it is not consensus. The verdict is **split, affirmed**.
+
+---
+
+## Tuning the policy
+
+Three knobs govern classification. All are validated to sensible ranges.
+
+| Knob | Flag | Default | Effect |
+|------|------|:-------:|--------|
+| `consensus_threshold` | `--consensus` | `0.66` | How lopsided a claim must be to count as consensus. |
