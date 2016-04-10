@@ -320,3 +320,16 @@ policy tuning, parser error paths, JSON round-trip stability (including unicode
 escapes and surrogate pairs), bundle determinism, and tamper detection. The
 viewer suite covers report validation, ANSI vs. plain output, HTML escaping, and
 render determinism.
+
+---
+
+## Design commitments
+
+- **No orchestration.** QuorumForge judges a transcript; it never runs agents.
+- **No dependencies.** Rust core is std-only; the viewer's only build-time
+  dependency is `tsc`. There is no `Cargo.lock` churn and no `node_modules`
+  supply chain to audit at runtime.
+- **Determinism first.** Ordered maps, sorted positions, snapped floats, and an
+  idempotent JSON writer mean identical inputs give identical bytes.
+- **Auditability over cleverness.** Every intermediate quantity (masses,
+  polarity, dissent) is retained in the report so a human can check the math.
