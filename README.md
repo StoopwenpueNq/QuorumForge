@@ -333,3 +333,16 @@ render determinism.
   idempotent JSON writer mean identical inputs give identical bytes.
 - **Auditability over cleverness.** Every intermediate quantity (masses,
   polarity, dissent) is retained in the report so a human can check the math.
+- **Offline forever.** No network calls, no remote media, no telemetry.
+
+---
+
+## Limitations
+
+QuorumForge is intentionally narrow. Know the edges before you rely on it.
+
+- **No semantic understanding.** Claim normalization is lexical only — it folds
+  hedges and contractions and collapses whitespace. Two claims that *mean* the
+  same thing but share no words are treated as distinct. There is no embedding
+  model, paraphrase detector, or entailment check, and adding one would break
+  determinism.
