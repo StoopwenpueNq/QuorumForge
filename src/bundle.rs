@@ -40,3 +40,15 @@ fn canonical_body(delib: &Deliberation, adj: &Adjudication) -> Json {
         .values()
         .map(|a| {
             json::obj(vec![
+                ("id", json::s(&a.id)),
+                ("name", json::s(&a.name)),
+                ("role", json::s(&a.role)),
+                ("weight", json::num(a.weight)),
+            ])
+        })
+        .collect();
+
+    let claims: Vec<Json> = delib
+        .claims
+        .values()
+        .map(|c| {
