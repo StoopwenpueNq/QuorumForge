@@ -52,3 +52,14 @@ fn canonical_body(delib: &Deliberation, adj: &Adjudication) -> Json {
         .claims
         .values()
         .map(|c| {
+            json::obj(vec![
+                ("id", json::s(&c.id)),
+                ("topic", json::s(&c.topic)),
+                ("text", json::s(&c.text)),
+                ("normalized", json::s(&c.normalized)),
+            ])
+        })
+        .collect();
+
+    // Positions sorted deterministically by (claim, agent, stance).
+    let mut positions: Vec<&Position> = delib.positions.iter().collect();
