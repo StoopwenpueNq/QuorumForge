@@ -98,3 +98,15 @@ fn canonical_body(delib: &Deliberation, adj: &Adjudication) -> Json {
     json::obj(vec![
         ("schema", json::s("quorumforge.bundle.v1")),
         ("deliberation_id", json::s(&delib.id)),
+        ("question", json::s(&delib.question)),
+        ("policy", policy_json(&adj.policy)),
+        ("agents", Json::Arr(agents)),
+        ("claims", Json::Arr(claims)),
+        ("positions", Json::Arr(positions)),
+        ("verdicts", Json::Arr(verdicts)),
+        ("summary", summary_json(adj)),
+    ])
+}
+
+fn policy_json(policy: &crate::adjudicate::Policy) -> Json {
+    json::obj(vec![
