@@ -144,3 +144,15 @@ fn verdict_json(v: &Verdict) -> Json {
         ("supporters", json::num(v.supporters as f64)),
         ("dissenters", json::num(v.dissenters as f64)),
         ("abstentions", json::num(v.abstentions as f64)),
+        ("citations", json::num(v.citation_count as f64)),
+        (
+            "majority_agents",
+            Json::Arr(v.majority_agents.iter().map(json::s).collect()),
+        ),
+        (
+            "minority_agents",
+            Json::Arr(v.minority_agents.iter().map(json::s).collect()),
+        ),
+    ])
+}
+
