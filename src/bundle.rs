@@ -156,3 +156,14 @@ fn verdict_json(v: &Verdict) -> Json {
     ])
 }
 
+/// Round to six decimals to keep floating-point noise out of stable bundles.
+fn round6(x: f64) -> f64 {
+    if x.is_finite() {
+        (x * 1_000_000.0).round() / 1_000_000.0
+    } else {
+        0.0
+    }
+}
+
+/// Serialise a bundle to canonical pretty JSON, including the digest field.
+pub fn to_json(bundle: &Bundle) -> String {
