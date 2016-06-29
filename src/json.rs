@@ -50,3 +50,21 @@ impl Json {
     }
 
     /// Borrow this value as a string, if it is a string.
+    pub fn as_str(&self) -> Option<&str> {
+        match self {
+            Json::Str(s) => Some(s),
+            _ => None,
+        }
+    }
+
+    /// Interpret this value as an `f64`, if it is a number.
+    pub fn as_f64(&self) -> Option<f64> {
+        match self {
+            Json::Num(n) => Some(*n),
+            _ => None,
+        }
+    }
+
+    /// Interpret this value as a bool, if it is a boolean.
+    pub fn as_bool(&self) -> Option<bool> {
+        match self {
