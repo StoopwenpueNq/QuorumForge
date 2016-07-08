@@ -68,3 +68,22 @@ impl Json {
     /// Interpret this value as a bool, if it is a boolean.
     pub fn as_bool(&self) -> Option<bool> {
         match self {
+            Json::Bool(b) => Some(*b),
+            _ => None,
+        }
+    }
+}
+
+/// An error produced while parsing JSON text.
+#[derive(Debug, Clone, PartialEq)]
+pub struct JsonError {
+    pub message: String,
+    pub position: usize,
+}
+
+impl fmt::Display for JsonError {
+    fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+        write!(f, "JSON error at byte {}: {}", self.position, self.message)
+    }
+}
+
