@@ -106,3 +106,21 @@ pub fn parse(input: &str) -> Result<Json, JsonError> {
 
 struct Parser<'a> {
     bytes: &'a [u8],
+    pos: usize,
+}
+
+impl<'a> Parser<'a> {
+    fn err(&self, msg: &str) -> JsonError {
+        JsonError {
+            message: msg.to_string(),
+            position: self.pos,
+        }
+    }
+
+    fn peek(&self) -> Option<u8> {
+        self.bytes.get(self.pos).copied()
+    }
+
+    fn skip_ws(&mut self) {
+        while let Some(b) = self.peek() {
+            if b == b' ' || b == b'\t' || b == b'\n' || b == b'\r' {
