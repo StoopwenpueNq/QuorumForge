@@ -217,3 +217,22 @@ impl<'a> Parser<'a> {
         let mut out = String::new();
         loop {
             match self.peek() {
+                None => return Err(self.err("unterminated string")),
+                Some(b'"') => {
+                    self.pos += 1;
+                    break;
+                }
+                Some(b'\\') => {
+                    self.pos += 1;
+                    match self.peek() {
+                        Some(b'"') => out.push('"'),
+                        Some(b'\\') => out.push('\\'),
+                        Some(b'/') => out.push('/'),
+                        Some(b'n') => out.push('\n'),
+                        Some(b't') => out.push('\t'),
+                        Some(b'r') => out.push('\r'),
+                        Some(b'b') => out.push('\u{0008}'),
+                        Some(b'f') => out.push('\u{000C}'),
+                        Some(b'u') => {
+                            let cp = self.parse_hex4()?;
+                            // After parse_hex4, pos points just past the four
