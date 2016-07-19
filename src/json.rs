@@ -199,3 +199,21 @@ impl<'a> Parser<'a> {
             items.push(value);
             self.skip_ws();
             match self.peek() {
+                Some(b',') => {
+                    self.pos += 1;
+                }
+                Some(b']') => {
+                    self.pos += 1;
+                    break;
+                }
+                _ => return Err(self.err("expected ',' or ']' in array")),
+            }
+        }
+        Ok(Json::Arr(items))
+    }
+
+    fn parse_string(&mut self) -> Result<String, JsonError> {
+        self.pos += 1; // consume opening quote
+        let mut out = String::new();
+        loop {
+            match self.peek() {
