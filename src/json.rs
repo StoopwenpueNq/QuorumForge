@@ -161,3 +161,22 @@ impl<'a> Parser<'a> {
             let key = self.parse_string()?;
             self.skip_ws();
             if self.peek() != Some(b':') {
+                return Err(self.err("expected ':' after object key"));
+            }
+            self.pos += 1;
+            let value = self.parse_value()?;
+            // Last-writer-wins keeps behaviour predictable on duplicate keys.
+            if let Some(slot) = entries.iter_mut().find(|(k, _)| *k == key) {
+                slot.1 = value;
+            } else {
+                entries.push((key, value));
+            }
+            self.skip_ws();
+            match self.peek() {
+                Some(b',') => {
+                    self.pos += 1;
+                }
+                Some(b'}') => {
+                    self.pos += 1;
+                    break;
+                }
