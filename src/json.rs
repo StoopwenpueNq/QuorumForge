@@ -273,3 +273,22 @@ impl<'a> Parser<'a> {
                     if start + len > self.bytes.len() {
                         return Err(self.err("truncated UTF-8 sequence"));
                     }
+                    match std::str::from_utf8(&self.bytes[start..start + len]) {
+                        Ok(s) => out.push_str(s),
+                        Err(_) => return Err(self.err("invalid UTF-8 in string")),
+                    }
+                    self.pos += len;
+                }
+            }
+        }
+        Ok(out)
+    }
+
+    fn parse_hex4(&mut self) -> Result<u16, JsonError> {
+        self.pos += 1; // consume 'u'
+        if self.pos + 4 > self.bytes.len() {
+            return Err(self.err("truncated \\u escape"));
+        }
+        let mut value: u16 = 0;
+        for _ in 0..4 {
+            let digit = self.bytes[self.pos];
