@@ -236,3 +236,21 @@ impl<'a> Parser<'a> {
                         Some(b'u') => {
                             let cp = self.parse_hex4()?;
                             // After parse_hex4, pos points just past the four
+                            // hex digits (i.e. at whatever follows the escape).
+                            // Handle surrogate pairs for characters outside the BMP.
+                            if (0xD800..=0xDBFF).contains(&cp) {
+                                if self.bytes.get(self.pos) == Some(&b'\\')
+                                    && self.bytes.get(self.pos + 1) == Some(&b'u')
+                                {
+                                    self.pos += 1; // consume the '\\'; parse_hex4 eats 'u'+digits
+                                    let low = self.parse_hex4()?;
+                                    let combined = 0x10000
+                                        + (((cp - 0xD800) as u32) << 10)
+                                        + (low - 0xDC00) as u32;
+                                    match char::from_u32(combined) {
+                                        Some(ch) => out.push(ch),
+                                        None => return Err(self.err("invalid surrogate pair")),
+                                    }
+                                } else {
+                                    return Err(self.err("lone high surrogate"));
+                                }
