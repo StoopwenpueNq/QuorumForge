@@ -254,3 +254,22 @@ impl<'a> Parser<'a> {
                                 } else {
                                     return Err(self.err("lone high surrogate"));
                                 }
+                            } else {
+                                match char::from_u32(cp as u32) {
+                                    Some(ch) => out.push(ch),
+                                    None => return Err(self.err("invalid unicode escape")),
+                                }
+                            }
+                            continue;
+                        }
+                        _ => return Err(self.err("invalid escape sequence")),
+                    }
+                    self.pos += 1;
+                }
+                Some(_) => {
+                    // Copy a full UTF-8 code point.
+                    let start = self.pos;
+                    let len = utf8_len(self.bytes[self.pos]);
+                    if start + len > self.bytes.len() {
+                        return Err(self.err("truncated UTF-8 sequence"));
+                    }
