@@ -347,3 +347,22 @@ impl<'a> Parser<'a> {
                     break;
                 }
             }
+        }
+        if matches!(self.peek(), Some(b'e') | Some(b'E')) {
+            self.pos += 1;
+            if matches!(self.peek(), Some(b'+') | Some(b'-')) {
+                self.pos += 1;
+            }
+            while let Some(c) = self.peek() {
+                if c.is_ascii_digit() {
+                    self.pos += 1;
+                } else {
+                    break;
+                }
+            }
+        }
+        let text = std::str::from_utf8(&self.bytes[start..self.pos])
+            .map_err(|_| self.err("invalid number bytes"))?;
+        text.parse::<f64>()
+            .map(Json::Num)
+            .map_err(|_| self.err("malformed number"))
