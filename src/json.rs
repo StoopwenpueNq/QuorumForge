@@ -329,3 +329,21 @@ impl<'a> Parser<'a> {
     fn parse_number(&mut self) -> Result<Json, JsonError> {
         let start = self.pos;
         if self.peek() == Some(b'-') {
+            self.pos += 1;
+        }
+        while let Some(c) = self.peek() {
+            if c.is_ascii_digit() {
+                self.pos += 1;
+            } else {
+                break;
+            }
+        }
+        if self.peek() == Some(b'.') {
+            self.pos += 1;
+            while let Some(c) = self.peek() {
+                if c.is_ascii_digit() {
+                    self.pos += 1;
+                } else {
+                    break;
+                }
+            }
