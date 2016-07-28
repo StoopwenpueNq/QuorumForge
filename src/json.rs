@@ -366,3 +366,22 @@ impl<'a> Parser<'a> {
         text.parse::<f64>()
             .map(Json::Num)
             .map_err(|_| self.err("malformed number"))
+    }
+}
+
+fn utf8_len(first: u8) -> usize {
+    if first < 0x80 {
+        1
+    } else if first >> 5 == 0b110 {
+        2
+    } else if first >> 4 == 0b1110 {
+        3
+    } else {
+        4
+    }
+}
+
+/// Serialise a [`Json`] value to a compact string.
+pub fn to_string(value: &Json) -> String {
+    let mut out = String::new();
+    write_value(&mut out, value, None, 0);
