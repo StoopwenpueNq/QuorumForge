@@ -385,3 +385,21 @@ fn utf8_len(first: u8) -> usize {
 pub fn to_string(value: &Json) -> String {
     let mut out = String::new();
     write_value(&mut out, value, None, 0);
+    out
+}
+
+/// Serialise a [`Json`] value to a pretty-printed string with two-space indent.
+pub fn to_string_pretty(value: &Json) -> String {
+    let mut out = String::new();
+    write_value(&mut out, value, Some(2), 0);
+    out
+}
+
+fn write_value(out: &mut String, value: &Json, indent: Option<usize>, depth: usize) {
+    match value {
+        Json::Null => out.push_str("null"),
+        Json::Bool(true) => out.push_str("true"),
+        Json::Bool(false) => out.push_str("false"),
+        Json::Num(n) => out.push_str(&format_number(*n)),
+        Json::Str(s) => write_string(out, s),
+        Json::Arr(items) => {
