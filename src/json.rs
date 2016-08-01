@@ -422,3 +422,22 @@ fn write_value(out: &mut String, value: &Json, indent: Option<usize>, depth: usi
             if entries.is_empty() {
                 out.push_str("{}");
                 return;
+            }
+            out.push('{');
+            for (i, (key, val)) in entries.iter().enumerate() {
+                if i > 0 {
+                    out.push(',');
+                }
+                newline_indent(out, indent, depth + 1);
+                write_string(out, key);
+                out.push(':');
+                if indent.is_some() {
+                    out.push(' ');
+                }
+                write_value(out, val, indent, depth + 1);
+            }
+            newline_indent(out, indent, depth);
+            out.push('}');
+        }
+    }
+}
