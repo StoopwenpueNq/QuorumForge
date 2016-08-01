@@ -403,3 +403,22 @@ fn write_value(out: &mut String, value: &Json, indent: Option<usize>, depth: usi
         Json::Num(n) => out.push_str(&format_number(*n)),
         Json::Str(s) => write_string(out, s),
         Json::Arr(items) => {
+            if items.is_empty() {
+                out.push_str("[]");
+                return;
+            }
+            out.push('[');
+            for (i, item) in items.iter().enumerate() {
+                if i > 0 {
+                    out.push(',');
+                }
+                newline_indent(out, indent, depth + 1);
+                write_value(out, item, indent, depth + 1);
+            }
+            newline_indent(out, indent, depth);
+            out.push(']');
+        }
+        Json::Obj(entries) => {
+            if entries.is_empty() {
+                out.push_str("{}");
+                return;
