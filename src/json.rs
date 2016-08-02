@@ -441,3 +441,21 @@ fn write_value(out: &mut String, value: &Json, indent: Option<usize>, depth: usi
         }
     }
 }
+
+fn newline_indent(out: &mut String, indent: Option<usize>, depth: usize) {
+    if let Some(width) = indent {
+        out.push('\n');
+        for _ in 0..(width * depth) {
+            out.push(' ');
+        }
+    }
+}
+
+fn write_string(out: &mut String, s: &str) {
+    out.push('"');
+    for ch in s.chars() {
+        match ch {
+            '"' => out.push_str("\\\""),
+            '\\' => out.push_str("\\\\"),
+            '\n' => out.push_str("\\n"),
+            '\t' => out.push_str("\\t"),
