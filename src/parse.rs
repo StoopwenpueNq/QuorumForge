@@ -49,3 +49,19 @@ impl std::error::Error for ParseError {}
 pub fn parse_auto(path: &str, contents: &str) -> Result<Deliberation, ParseError> {
     let lower = path.to_lowercase();
     if lower.ends_with(".json") {
+        parse_json(contents)
+    } else {
+        parse_lines(contents)
+    }
+}
+
+/// Split a line into pipe-delimited fields, honouring `\|` escapes.
+fn split_fields(line: &str) -> Vec<String> {
+    let mut fields = Vec::new();
+    let mut current = String::new();
+    let mut chars = line.chars().peekable();
+    while let Some(ch) = chars.next() {
+        match ch {
+            '\\' if chars.peek() == Some(&'|') => {
+                chars.next();
+                current.push('|');
