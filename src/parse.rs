@@ -96,3 +96,18 @@ pub fn parse_lines(contents: &str) -> Result<Deliberation, ParseError> {
                     return Err(ParseError {
                         line: line_no,
                         message: format!(
+                            "'{}' needs {} fields, found {}",
+                            directive,
+                            $n - 1,
+                            fields.len() - 1
+                        ),
+                    });
+                }
+            };
+        }
+
+        match directive.as_str() {
+            "delib" => {
+                need!(3);
+                if delib.is_some() {
+                    return Err(ParseError {
