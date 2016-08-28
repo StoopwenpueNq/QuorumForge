@@ -127,3 +127,18 @@ pub fn parse_lines(contents: &str) -> Result<Deliberation, ParseError> {
                     id.clone(),
                     Agent {
                         id,
+                        name: fields[2].clone(),
+                        weight,
+                        role,
+                    },
+                );
+            }
+            "claim" => {
+                need!(4);
+                let d = require_delib(&mut delib, line_no)?;
+                let id = fields[1].clone();
+                d.claims.insert(
+                    id.clone(),
+                    Claim {
+                        id,
+                        topic: fields[2].clone(),
