@@ -158,3 +158,18 @@ pub fn parse_lines(contents: &str) -> Result<Deliberation, ParseError> {
                 let note = fields.get(5).cloned().unwrap_or_default();
                 d.positions.push(Position {
                     agent_id: fields[1].clone(),
+                    claim_id: fields[2].clone(),
+                    stance,
+                    confidence,
+                    citations: Vec::new(),
+                    note,
+                });
+            }
+            "cite" => {
+                need!(5);
+                let d = require_delib(&mut delib, line_no)?;
+                let agent_id = &fields[1];
+                let claim_id = &fields[2];
+                let citation = Citation::new(fields[3].clone(), fields[4].clone());
+                // Attach to the most recent matching position.
+                let target = d
