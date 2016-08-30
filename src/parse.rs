@@ -189,3 +189,18 @@ pub fn parse_lines(contents: &str) -> Result<Deliberation, ParseError> {
                         })
                     }
                 }
+            }
+            other => {
+                return Err(ParseError {
+                    line: line_no,
+                    message: format!("unknown directive '{}'", other),
+                });
+            }
+        }
+    }
+
+    let delib = delib.ok_or_else(|| ParseError {
+        line: 0,
+        message: "file contained no 'delib' record".into(),
+    })?;
+    validate(&delib)?;
