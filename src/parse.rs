@@ -220,3 +220,18 @@ fn require_delib(
 fn parse_f64(
     field: Option<&String>,
     default: f64,
+    line_no: usize,
+    what: &str,
+) -> Result<f64, ParseError> {
+    match field {
+        None => Ok(default),
+        Some(s) if s.is_empty() => Ok(default),
+        Some(s) => s.parse::<f64>().map_err(|_| ParseError {
+            line: line_no,
+            message: format!("invalid {} value '{}'", what, s),
+        }),
+    }
+}
+
+/// Parse the JSON evidence format.
+pub fn parse_json(contents: &str) -> Result<Deliberation, ParseError> {
