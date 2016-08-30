@@ -142,3 +142,19 @@ pub fn parse_lines(contents: &str) -> Result<Deliberation, ParseError> {
                     Claim {
                         id,
                         topic: fields[2].clone(),
+                        text: fields[3].clone(),
+                        normalized: String::new(),
+                    },
+                );
+            }
+            "pos" => {
+                need!(5);
+                let d = require_delib(&mut delib, line_no)?;
+                let stance = Stance::parse(&fields[3]).ok_or_else(|| ParseError {
+                    line: line_no,
+                    message: format!("unknown stance '{}'", fields[3]),
+                })?;
+                let confidence = parse_f64(fields.get(4), 1.0, line_no, "confidence")?;
+                let note = fields.get(5).cloned().unwrap_or_default();
+                d.positions.push(Position {
+                    agent_id: fields[1].clone(),
