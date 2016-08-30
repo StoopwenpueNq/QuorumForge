@@ -204,3 +204,19 @@ pub fn parse_lines(contents: &str) -> Result<Deliberation, ParseError> {
         message: "file contained no 'delib' record".into(),
     })?;
     validate(&delib)?;
+    Ok(delib)
+}
+
+fn require_delib(
+    delib: &mut Option<Deliberation>,
+    line_no: usize,
+) -> Result<&mut Deliberation, ParseError> {
+    delib.as_mut().ok_or_else(|| ParseError {
+        line: line_no,
+        message: "record appeared before the 'delib' header".into(),
+    })
+}
+
+fn parse_f64(
+    field: Option<&String>,
+    default: f64,
