@@ -235,3 +235,19 @@ fn parse_f64(
 
 /// Parse the JSON evidence format.
 pub fn parse_json(contents: &str) -> Result<Deliberation, ParseError> {
+    let root = json::parse(contents).map_err(|e| ParseError {
+        line: 0,
+        message: e.message,
+    })?;
+
+    let id = str_field(&root, "id").unwrap_or_else(|| "unnamed".to_string());
+    let question = str_field(&root, "question").unwrap_or_default();
+    let mut delib = Deliberation::new(id, question);
+
+    if let Some(agents) = root.get("agents").and_then(Json::as_array) {
+        for a in agents {
+            let id = str_field(a, "id").ok_or_else(|| field_err("agent.id"))?;
+            let name = str_field(a, "name").unwrap_or_else(|| id.clone());
+            let weight = a.get("weight").and_then(Json::as_f64).unwrap_or(1.0);
+            let role = str_field(a, "role").unwrap_or_default();
+            delib.agents.insert(
