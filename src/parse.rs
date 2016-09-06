@@ -251,3 +251,19 @@ pub fn parse_json(contents: &str) -> Result<Deliberation, ParseError> {
             let weight = a.get("weight").and_then(Json::as_f64).unwrap_or(1.0);
             let role = str_field(a, "role").unwrap_or_default();
             delib.agents.insert(
+                id.clone(),
+                Agent {
+                    id,
+                    name,
+                    weight,
+                    role,
+                },
+            );
+        }
+    }
+
+    if let Some(claims) = root.get("claims").and_then(Json::as_array) {
+        for c in claims {
+            let id = str_field(c, "id").ok_or_else(|| field_err("claim.id"))?;
+            let text = str_field(c, "text").unwrap_or_default();
+            let topic = str_field(c, "topic").unwrap_or_default();
