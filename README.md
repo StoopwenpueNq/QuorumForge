@@ -346,3 +346,50 @@ QuorumForge is intentionally narrow. Know the edges before you rely on it.
   same thing but share no words are treated as distinct. There is no embedding
   model, paraphrase detector, or entailment check, and adding one would break
   determinism.
+- **No provenance grading.** Citations are recorded and counted, but their
+  *quality* is not assessed. A citation to a rigorous proof and a citation to a
+  hunch count the same toward the citation tally. Weight your agents, not your
+  sources.
+- **Confidence is self-reported.** The engine trusts (after clamping) whatever
+  confidence an agent declares. It cannot detect overconfidence or calibration
+  drift.
+- **Weights are exogenous.** Credibility weights come from the input file.
+  QuorumForge does not learn or update them; garbage weights yield garbage
+  verdicts.
+- **Independence is assumed.** The scoring model treats positions as independent
+  votes. It does not detect collusion, duplicated reasoning, or agents that are
+  really one source wearing many hats.
+- **Single-round.** A deliberation is a static snapshot. There is no notion of
+  rebuttal rounds, position changes over time, or convergence dynamics beyond
+  what the final transcript records.
+- **Numbers are `f64` snapped to six decimals.** This is ample for adjudication
+  but is not arbitrary-precision arithmetic; do not treat masses as exact
+  rationals.
+- **The FNV-1a digest is an integrity fingerprint, not a security hash.** It
+  detects accidental drift and casual tampering, not a determined adversary.
+  Do not use it as a cryptographic seal.
+
+---
+
+## A note on the two encodings
+
+The line-oriented `.qf` format is built for humans and version control: comments,
+one record per line, and clean diffs. The JSON format is built for machines that
+generate deliberations programmatically. They are information-equivalent and
+converge on the same model — pick whichever fits the hand that writes it. The
+full grammar and schema live in [`docs/EVIDENCE.md`](docs/EVIDENCE.md).
+
+---
+
+## License & history
+
+Released under the [MIT License](LICENSE). See [`CHANGELOG.md`](CHANGELOG.md) for
+the release history.
+
+<div align="center">
+
+*Bring the argument. QuorumForge brings the light.*
+
+</div>
+
+<!-- draft note 17 -->
