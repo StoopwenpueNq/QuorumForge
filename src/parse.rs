@@ -298,3 +298,18 @@ pub fn parse_json(contents: &str) -> Result<Deliberation, ParseError> {
                     citations.push(Citation::new(source, locator));
                 }
             }
+            delib.positions.push(Position {
+                agent_id,
+                claim_id,
+                stance,
+                confidence,
+                citations,
+                note,
+            });
+        }
+    }
+
+    validate(&delib)?;
+    Ok(delib)
+}
+
