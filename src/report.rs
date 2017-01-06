@@ -39,3 +39,17 @@ pub fn render_text(delib: &Deliberation, adj: &Adjudication) -> String {
     out.push_str(&format!(
         "Claims: {}   Consensus: {}   Contested: {}   Split: {}   Unsupported: {}\n",
         adj.tally.total(),
+        adj.tally.consensus,
+        adj.tally.contested,
+        adj.tally.split,
+        adj.tally.unsupported,
+    ));
+    out.push_str(&format!(
+        "Council cohesion: {:.1}%   Policy: consensus>={:.2}, dissent<{:.2}\n",
+        adj.cohesion * 100.0,
+        adj.policy.consensus_threshold,
+        adj.policy.dissent_ceiling,
+    ));
+    out.push_str(&thin);
+    out.push('\n');
+
