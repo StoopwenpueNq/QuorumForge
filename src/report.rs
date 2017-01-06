@@ -25,3 +25,17 @@ pub fn render_text(delib: &Deliberation, adj: &Adjudication) -> String {
     out.push_str(&bar);
     out.push('\n');
     out.push_str(&format!(
+        "QUORUMFORGE VERDICT  ::  {}\n",
+        adj.deliberation_id
+    ));
+    out.push_str(&format!(
+        "Question: {}\n",
+        wrap(&adj.question, 62, "          ")
+    ));
+    out.push_str(&bar);
+    out.push('\n');
+
+    // Headline tally.
+    out.push_str(&format!(
+        "Claims: {}   Consensus: {}   Contested: {}   Split: {}   Unsupported: {}\n",
+        adj.tally.total(),
