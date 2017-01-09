@@ -67,3 +67,16 @@ pub fn render_text(delib: &Deliberation, adj: &Adjudication) -> String {
             "negated".to_string()
         };
         out.push_str(&format!(
+            "{} [{}] {}\n",
+            glyph,
+            verdict.claim_id,
+            wrap(text, 58, "         "),
+        ));
+        let topic_label = if topic.is_empty() {
+            String::new()
+        } else {
+            format!("topic={}  ", topic)
+        };
+        out.push_str(&format!(
+            "     {:<11} {}polarity={:+.2}  mass={:.2}  dissent={:.0}%  cites={}\n",
+            format!("{}/{}", verdict.outcome.as_token(), direction),
