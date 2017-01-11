@@ -94,3 +94,17 @@ pub fn render_text(delib: &Deliberation, adj: &Adjudication) -> String {
         }
     }
 
+    out.push_str(&thin);
+    out.push('\n');
+
+    // Per-agent influence roster.
+    out.push_str("Agent influence (weighted decisive votes cast):\n");
+    let influence = agent_influence(delib, adj);
+    for (agent_id, score) in &influence {
+        let name = delib
+            .agents
+            .get(agent_id)
+            .map(|a| a.name.as_str())
+            .unwrap_or(agent_id.as_str());
+        out.push_str(&format!("  {:<16} {:>7.2}   {}\n", agent_id, score, name));
+    }
