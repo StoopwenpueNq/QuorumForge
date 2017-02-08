@@ -59,3 +59,18 @@ impl Default for Policy {
         Policy {
             consensus_threshold: 0.66,
             dissent_ceiling: 0.34,
+            minimum_mass: 1e-9,
+        }
+    }
+}
+
+impl Policy {
+    /// Validate a policy, returning a human-readable error on nonsense inputs.
+    pub fn validate(&self) -> Result<(), String> {
+        if !(0.0..=1.0).contains(&self.consensus_threshold) {
+            return Err(format!(
+                "consensus_threshold must be in [0,1], got {}",
+                self.consensus_threshold
+            ));
+        }
+        if !(0.0..=1.0).contains(&self.dissent_ceiling) {
