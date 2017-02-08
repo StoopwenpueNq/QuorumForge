@@ -44,3 +44,18 @@ use std::collections::BTreeMap;
 
 /// Tunable thresholds for the classifier. Defaults are chosen so that a
 /// two-thirds supermajority with limited dissent reads as consensus.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub struct Policy {
+    /// Minimum absolute polarity for a `Consensus` outcome.
+    pub consensus_threshold: f64,
+    /// Maximum losing-side mass fraction tolerated within a `Consensus`.
+    pub dissent_ceiling: f64,
+    /// Minimum decisive mass required to escape `Unsupported`.
+    pub minimum_mass: f64,
+}
+
+impl Default for Policy {
+    fn default() -> Self {
+        Policy {
+            consensus_threshold: 0.66,
+            dissent_ceiling: 0.34,
