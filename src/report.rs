@@ -206,3 +206,17 @@ pub fn render_json(delib: &Deliberation, adj: &Adjudication) -> String {
                 ("unsupported", json::num(adj.tally.unsupported as f64)),
                 ("cohesion", json::num(round6(adj.cohesion))),
             ]),
+        ),
+        (
+            "policy",
+            json::obj(vec![
+                (
+                    "consensus_threshold",
+                    json::num(adj.policy.consensus_threshold),
+                ),
+                ("dissent_ceiling", json::num(adj.policy.dissent_ceiling)),
+                ("minimum_mass", json::num(adj.policy.minimum_mass)),
+            ]),
+        ),
+        ("agents", Json::Arr(agents)),
+        ("verdicts", Json::Arr(verdicts)),
