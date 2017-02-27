@@ -74,3 +74,17 @@ impl Policy {
             ));
         }
         if !(0.0..=1.0).contains(&self.dissent_ceiling) {
+            return Err(format!(
+                "dissent_ceiling must be in [0,1], got {}",
+                self.dissent_ceiling
+            ));
+        }
+        if self.minimum_mass < 0.0 {
+            return Err(format!(
+                "minimum_mass must be non-negative, got {}",
+                self.minimum_mass
+            ));
+        }
+        Ok(())
+    }
+}
