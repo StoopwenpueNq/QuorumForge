@@ -118,3 +118,17 @@ impl Outcome {
 #[derive(Debug, Clone, PartialEq)]
 pub struct Verdict {
     pub claim_id: String,
+    pub normalized: String,
+    pub outcome: Outcome,
+    /// `true` when a consensus/split leans toward the claim being true.
+    pub affirmed: bool,
+    /// Sum of support votes.
+    pub support_mass: f64,
+    /// Sum of contradiction vote magnitudes.
+    pub contradiction_mass: f64,
+    /// `support_mass + contradiction_mass`.
+    pub decisive_mass: f64,
+    /// `(support_mass - contradiction_mass) / decisive_mass`, or `0` if no mass.
+    pub polarity: f64,
+    /// Losing-side fraction of decisive mass in `[0, 0.5]`.
+    pub dissent_ratio: f64,
