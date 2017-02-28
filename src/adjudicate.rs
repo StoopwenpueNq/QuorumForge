@@ -103,3 +103,18 @@ pub enum Outcome {
 }
 
 impl Outcome {
+    /// A stable lowercase token for serialisation.
+    pub fn as_token(self) -> &'static str {
+        match self {
+            Outcome::Consensus => "consensus",
+            Outcome::Contested => "contested",
+            Outcome::Split => "split",
+            Outcome::Unsupported => "unsupported",
+        }
+    }
+}
+
+/// A per-claim verdict with all intermediate quantities retained for auditing.
+#[derive(Debug, Clone, PartialEq)]
+pub struct Verdict {
+    pub claim_id: String,
