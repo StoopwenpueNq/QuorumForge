@@ -162,3 +162,17 @@ pub struct Adjudication {
 
 /// Outcome counts across all claims.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
+pub struct Tally {
+    pub consensus: usize,
+    pub contested: usize,
+    pub split: usize,
+    pub unsupported: usize,
+}
+
+impl Tally {
+    pub fn total(&self) -> usize {
+        self.consensus + self.contested + self.split + self.unsupported
+    }
+}
+
+/// Adjudicate a single claim under a policy.
