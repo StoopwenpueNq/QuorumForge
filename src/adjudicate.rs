@@ -191,3 +191,18 @@ pub fn verdict_for(delib: &Deliberation, claim_id: &str, policy: &Policy) -> Ver
     let mut support_mass = 0.0f64;
     let mut contradiction_mass = 0.0f64;
     let mut supporters = 0usize;
+    let mut dissenters = 0usize;
+    let mut abstentions = 0usize;
+    let mut citation_count = 0usize;
+    let mut support_agents: Vec<String> = Vec::new();
+    let mut contradict_agents: Vec<String> = Vec::new();
+
+    for pos in delib.positions_for(claim_id) {
+        citation_count += pos.citations.len();
+        let weight = delib.agent_weight(&pos.agent_id);
+        // Clamp confidence defensively so malformed inputs cannot skew a verdict.
+        let conf = pos.confidence.clamp(0.0, 1.0);
+        let vote = weight * conf;
+        match pos.stance {
+            Stance::Support => {
+                support_mass += vote;
