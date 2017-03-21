@@ -23,3 +23,13 @@ pub enum Stance {
 }
 
 impl Stance {
+    /// Parse a stance from its canonical lowercase token.
+    pub fn parse(token: &str) -> Option<Stance> {
+        match token.trim().to_ascii_lowercase().as_str() {
+            "support" | "supports" | "+" | "for" => Some(Stance::Support),
+            "contradict" | "contradicts" | "against" | "-" | "refute" | "refutes" => {
+                Some(Stance::Contradict)
+            }
+            "abstain" | "abstains" | "neutral" | "0" => Some(Stance::Abstain),
+            _ => None,
+        }
