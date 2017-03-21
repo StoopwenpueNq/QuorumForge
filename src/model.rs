@@ -13,3 +13,13 @@ use std::collections::BTreeMap;
 
 /// The stance an agent takes toward a claim.
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum Stance {
+    /// The agent asserts the claim is true.
+    Support,
+    /// The agent asserts the claim is false.
+    Contradict,
+    /// The agent declines to take a side (recorded, but carries no weight).
+    Abstain,
+}
+
+impl Stance {
