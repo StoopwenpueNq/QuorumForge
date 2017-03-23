@@ -33,3 +33,13 @@ impl Stance {
             "abstain" | "abstains" | "neutral" | "0" => Some(Stance::Abstain),
             _ => None,
         }
+    }
+
+    /// The canonical lowercase token for this stance.
+    pub fn as_token(self) -> &'static str {
+        match self {
+            Stance::Support => "support",
+            Stance::Contradict => "contradict",
+            Stance::Abstain => "abstain",
+        }
+    }
