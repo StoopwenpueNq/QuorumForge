@@ -53,3 +53,13 @@ impl Stance {
         }
     }
 }
+
+/// A source reference attached to a position.
+#[derive(Debug, Clone, PartialEq)]
+pub struct Citation {
+    /// A short, stable identifier for the source (e.g. `doc:rfc-8949`).
+    pub source: String,
+    /// A human-readable locator: page, section, URL fragment, or quote.
+    pub locator: String,
+}
+
