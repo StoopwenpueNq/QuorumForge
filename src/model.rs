@@ -63,3 +63,13 @@ pub struct Citation {
     pub locator: String,
 }
 
+impl Citation {
+    pub fn new(source: impl Into<String>, locator: impl Into<String>) -> Self {
+        Citation {
+            source: source.into(),
+            locator: locator.into(),
+        }
+    }
+}
+
+/// A single agent's stance on a single claim.
