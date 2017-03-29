@@ -103,3 +103,13 @@ pub struct Agent {
 }
 
 /// A proposition under adjudication.
+#[derive(Debug, Clone, PartialEq)]
+pub struct Claim {
+    /// Stable identifier, unique within a deliberation.
+    pub id: String,
+    /// The raw claim text as authored.
+    pub text: String,
+    /// The normalized form used for grouping and comparison (filled in by the
+    /// normalizer; equals `text` until then).
+    pub normalized: String,
+    /// Optional topic tag used to cluster related claims.
