@@ -73,3 +73,13 @@ impl Citation {
 }
 
 /// A single agent's stance on a single claim.
+#[derive(Debug, Clone, PartialEq)]
+pub struct Position {
+    /// The id of the agent that holds this position.
+    pub agent_id: String,
+    /// The id of the claim this position addresses.
+    pub claim_id: String,
+    /// Whether the agent supports, contradicts, or abstains.
+    pub stance: Stance,
+    /// The agent's self-reported confidence in `[0.0, 1.0]`.
+    pub confidence: f64,
