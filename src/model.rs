@@ -83,3 +83,13 @@ pub struct Position {
     pub stance: Stance,
     /// The agent's self-reported confidence in `[0.0, 1.0]`.
     pub confidence: f64,
+    /// Zero or more citations backing this position.
+    pub citations: Vec<Citation>,
+    /// Free-form rationale captured verbatim from the deliberation.
+    pub note: String,
+}
+
+/// A council member with a credibility weight.
+#[derive(Debug, Clone, PartialEq)]
+pub struct Agent {
+    /// Stable identifier, unique within a deliberation.
