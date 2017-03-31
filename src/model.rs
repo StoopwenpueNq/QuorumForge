@@ -113,3 +113,13 @@ pub struct Claim {
     /// normalizer; equals `text` until then).
     pub normalized: String,
     /// Optional topic tag used to cluster related claims.
+    pub topic: String,
+}
+
+/// A complete deliberation: the question, the council, the claims, and every
+/// recorded position.
+#[derive(Debug, Clone, PartialEq)]
+pub struct Deliberation {
+    /// Stable identifier for the deliberation.
+    pub id: String,
+    /// The question or motion the council is adjudicating.
