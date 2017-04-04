@@ -16,3 +16,13 @@ use std::collections::BTreeMap;
 const LEADING_HEDGES: &[&str] = &[
     "i think that",
     "i think",
+    "i believe that",
+    "i believe",
+    "it seems that",
+    "it seems",
+    "arguably",
+    "presumably",
+    "clearly",
+    "obviously",
+    "in my view",
+    "it is likely that",
