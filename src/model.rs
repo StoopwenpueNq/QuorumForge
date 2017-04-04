@@ -123,3 +123,13 @@ pub struct Deliberation {
     /// Stable identifier for the deliberation.
     pub id: String,
     /// The question or motion the council is adjudicating.
+    pub question: String,
+    /// Council members, keyed by id for lookup.
+    pub agents: BTreeMap<String, Agent>,
+    /// Claims, keyed by id for lookup.
+    pub claims: BTreeMap<String, Claim>,
+    /// Every position taken during the deliberation, in authored order.
+    pub positions: Vec<Position>,
+}
+
+impl Deliberation {
