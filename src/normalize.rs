@@ -37,3 +37,14 @@ pub fn normalize_text(text: &str) -> String {
     let lowered = text.to_lowercase();
     let mut joined = lowered.split_whitespace().collect::<Vec<_>>().join(" ");
 
+    // 2. Strip trailing sentence punctuation.
+    while matches!(
+        joined.chars().last(),
+        Some('.') | Some('!') | Some('?') | Some(';')
+    ) {
+        joined.pop();
+    }
+    joined = joined.trim().to_string();
+
+    // 3. Drop a single leading hedge if present (longest match first).
+    for hedge in LEADING_HEDGES {
