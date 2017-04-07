@@ -90,3 +90,14 @@ pub fn normalize_text(text: &str) -> String {
         if joined.contains(from) {
             joined = joined.replace(from, to);
         }
+    }
+
+    // 5. Re-collapse any whitespace introduced by replacement.
+    joined.split_whitespace().collect::<Vec<_>>().join(" ")
+}
+
+/// Populate the `normalized` field of every claim in a deliberation.
+pub fn normalize_deliberation(delib: &mut Deliberation) {
+    let updates: Vec<(String, String)> = delib
+        .claims
+        .values()
