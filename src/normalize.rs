@@ -58,3 +58,14 @@ pub fn normalize_text(text: &str) -> String {
             if !boundary {
                 continue;
             }
+            // A hedge may be followed by a comma or other punctuation
+            // ("arguably, ...") which should also be dropped.
+            let rest = rest.trim_start_matches(|c: char| c == ',' || c == ':' || c.is_whitespace());
+            // Only strip when a hedge is followed by more content.
+            if !rest.is_empty() {
+                joined = rest.to_string();
+                break;
+            }
+        }
+    }
+
