@@ -69,3 +69,14 @@ pub fn normalize_text(text: &str) -> String {
         }
     }
 
+    // 4. Fold a few common contractions to their expanded forms so that
+    //    "isn't" and "is not" normalise together.
+    let expansions: &[(&str, &str)] = &[
+        ("isn't", "is not"),
+        ("aren't", "are not"),
+        ("wasn't", "was not"),
+        ("weren't", "were not"),
+        ("doesn't", "does not"),
+        ("don't", "do not"),
+        ("didn't", "did not"),
+        ("can't", "cannot"),
