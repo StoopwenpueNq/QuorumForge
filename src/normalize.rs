@@ -101,3 +101,14 @@ pub fn normalize_deliberation(delib: &mut Deliberation) {
     let updates: Vec<(String, String)> = delib
         .claims
         .values()
+        .map(|c| (c.id.clone(), normalize_text(&c.text)))
+        .collect();
+    for (id, normalized) in updates {
+        if let Some(claim) = delib.claims.get_mut(&id) {
+            claim.normalized = normalized;
+        }
+    }
+}
+
+/// Group claim ids by their normalized text. Claims that share a normalized
+/// form are treated as the same proposition for consensus purposes.
