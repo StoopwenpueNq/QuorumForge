@@ -122,3 +122,14 @@ pub fn cluster_by_normalized(delib: &Deliberation) -> BTreeMap<String, Vec<Strin
             normalize_text(&claim.text)
         } else {
             claim.normalized.clone()
+        };
+        clusters.entry(key).or_default().push(claim.id.clone());
+    }
+    for ids in clusters.values_mut() {
+        ids.sort();
+    }
+    clusters
+}
+
+/// A lightweight token-overlap similarity in `[0.0, 1.0]` used only for
+/// diagnostics and the "near-duplicate" hints surfaced in reports. It is the
