@@ -33,3 +33,22 @@ use std::process::ExitCode;
 
 const USAGE: &str = "\
 quorumforge — multi-agent evidence adjudication engine
+
+USAGE:
+    quorumforge <command> [options] <evidence-file | ->
+
+COMMANDS:
+    adjudicate   Parse, normalize, and print a verdict report (text or JSON).
+    bundle       Emit a deterministic, digest-stamped evidence bundle (JSON).
+    verify       Re-derive a bundle's digest from its body and confirm it.
+    inspect      Print the parsed, normalized deliberation as JSON.
+    help         Show this message.
+
+OPTIONS:
+    --format <text|json>   Report format for `adjudicate` (default: text).
+    --consensus <0..1>     Consensus polarity threshold (default: 0.66).
+    --dissent <0..1>       Dissent ceiling (default: 0.34).
+    --min-mass <n>         Minimum decisive mass to escape unsupported.
+    -o, --output <path>    Write output to a file instead of stdout.
+    --json                 Treat stdin / extensionless input as JSON.
+
