@@ -70,3 +70,22 @@ fn main() -> ExitCode {
         }
     }
 }
+
+struct CliError {
+    message: String,
+    code: ExitCode,
+}
+
+impl CliError {
+    fn usage(msg: impl Into<String>) -> Self {
+        CliError {
+            message: msg.into(),
+            code: ExitCode::from(2),
+        }
+    }
+    fn parse(msg: impl Into<String>) -> Self {
+        CliError {
+            message: msg.into(),
+            code: ExitCode::from(3),
+        }
+    }
