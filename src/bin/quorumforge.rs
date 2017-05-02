@@ -107,3 +107,21 @@ fn run(args: &[String]) -> Result<ExitCode, CliError> {
     let mut format = "text".to_string();
     let mut policy = Policy::default();
     let mut output: Option<String> = None;
+    let mut input: Option<String> = None;
+    let mut force_json = false;
+
+    let mut i = 1;
+    while i < args.len() {
+        let arg = args[i].as_str();
+        match arg {
+            "--format" => {
+                format = take_value(args, &mut i, "--format")?;
+            }
+            "--consensus" => {
+                policy.consensus_threshold = take_f64(args, &mut i, "--consensus")?;
+            }
+            "--dissent" => {
+                policy.dissent_ceiling = take_f64(args, &mut i, "--dissent")?;
+            }
+            "--min-mass" => {
+                policy.minimum_mass = take_f64(args, &mut i, "--min-mass")?;
