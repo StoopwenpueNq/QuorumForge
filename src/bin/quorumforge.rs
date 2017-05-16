@@ -144,3 +144,21 @@ fn run(args: &[String]) -> Result<ExitCode, CliError> {
                 }
                 input = Some(arg.to_string());
             }
+        }
+        i += 1;
+    }
+
+    policy
+        .validate()
+        .map_err(|e| CliError::usage(format!("invalid policy: {}", e)))?;
+
+    let input =
+        input.ok_or_else(|| CliError::usage("no evidence file given (use '-' for stdin)"))?;
+
+    let (contents, effective_path) = read_input(&input, force_json)?;
+
+    match command {
+        "adjudicate" => {
+            let (delib, adj) = load_adjudicated(&effective_path, &contents, &policy)?;
+            let rendered = match format.as_str() {
+                "text" => report::render_text(&delib, &adj),
