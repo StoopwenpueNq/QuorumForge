@@ -125,3 +125,22 @@ fn run(args: &[String]) -> Result<ExitCode, CliError> {
             }
             "--min-mass" => {
                 policy.minimum_mass = take_f64(args, &mut i, "--min-mass")?;
+            }
+            "-o" | "--output" => {
+                output = Some(take_value(args, &mut i, "--output")?);
+            }
+            "--json" => {
+                force_json = true;
+            }
+            other if other.starts_with("--") => {
+                return Err(CliError::usage(format!("unknown option '{}'", other)));
+            }
+            _ => {
+                if input.is_some() {
+                    return Err(CliError::usage(format!(
+                        "unexpected extra argument '{}'",
+                        arg
+                    )));
+                }
+                input = Some(arg.to_string());
+            }
