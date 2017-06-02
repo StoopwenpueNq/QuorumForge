@@ -162,3 +162,22 @@ fn run(args: &[String]) -> Result<ExitCode, CliError> {
             let (delib, adj) = load_adjudicated(&effective_path, &contents, &policy)?;
             let rendered = match format.as_str() {
                 "text" => report::render_text(&delib, &adj),
+                "json" => report::render_json(&delib, &adj),
+                other => {
+                    return Err(CliError::usage(format!(
+                        "unknown --format '{}', expected text or json",
+                        other
+                    )))
+                }
+            };
+            emit(&output, &rendered)?;
+            Ok(ExitCode::SUCCESS)
+        }
+        "bundle" => {
+            let (delib, adj) = load_adjudicated(&effective_path, &contents, &policy)?;
+            let b = bundle::build(&delib, &adj);
+            let rendered = bundle::to_json(&b);
+            emit(&output, &rendered)?;
+            Ok(ExitCode::SUCCESS)
+        }
+        "inspect" => {
