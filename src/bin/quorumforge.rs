@@ -199,3 +199,21 @@ fn run(args: &[String]) -> Result<ExitCode, CliError> {
             } else {
                 eprintln!(
                     "quorumforge: digest MISMATCH — bundle body does not match its stored digest"
+                );
+                Ok(ExitCode::from(4))
+            }
+        }
+        other => Err(CliError::usage(format!("unknown command '{}'", other))),
+    }
+}
+
+fn load_adjudicated(
+    path: &str,
+    contents: &str,
+    policy: &Policy,
+) -> Result<(quorumforge::Deliberation, quorumforge::Adjudication), CliError> {
+    let mut delib =
+        parse::parse_auto(path, contents).map_err(|e| CliError::parse(e.to_string()))?;
+    normalize::normalize_deliberation(&mut delib);
+    let adj = adjudicate(&delib, policy);
+    Ok((delib, adj))
