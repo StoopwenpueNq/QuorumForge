@@ -181,3 +181,21 @@ fn run(args: &[String]) -> Result<ExitCode, CliError> {
             Ok(ExitCode::SUCCESS)
         }
         "inspect" => {
+            let mut delib = parse::parse_auto(&effective_path, &contents)
+                .map_err(|e| CliError::parse(e.to_string()))?;
+            normalize::normalize_deliberation(&mut delib);
+            let rendered = inspect_json(&delib);
+            emit(&output, &rendered)?;
+            Ok(ExitCode::SUCCESS)
+        }
+        "verify" => {
+            let ok = verify_bundle(&contents)?;
+            if ok {
+                emit(
+                    &output,
+                    "digest OK: bundle body matches its stored digest\n",
+                )?;
+                Ok(ExitCode::SUCCESS)
+            } else {
+                eprintln!(
+                    "quorumforge: digest MISMATCH — bundle body does not match its stored digest"
