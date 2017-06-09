@@ -236,3 +236,21 @@ fn verify_bundle(contents: &str) -> Result<bool, CliError> {
         .ok_or_else(|| CliError::parse("bundle root is not an object"))?;
     let body: Vec<(String, json::Json)> = entries
         .iter()
+        .filter(|(k, _)| k != "digest")
+        .cloned()
+        .collect();
+    let body_json = json::Json::Obj(body);
+    let recomputed = bundle::fnv1a_hex(json::to_string(&body_json).as_bytes());
+    Ok(recomputed == stored)
+}
+
+fn inspect_json(delib: &quorumforge::Deliberation) -> String {
+    let agents: Vec<json::Json> = delib
+        .agents
+        .values()
+        .map(|a| {
+            json::obj(vec![
+                ("id", json::s(&a.id)),
+                ("name", json::s(&a.name)),
+                ("role", json::s(&a.role)),
+                ("weight", json::num(a.weight)),
