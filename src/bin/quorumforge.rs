@@ -273,3 +273,21 @@ fn inspect_json(delib: &quorumforge::Deliberation) -> String {
         .positions
         .iter()
         .map(|p| {
+            let cites: Vec<json::Json> = p
+                .citations
+                .iter()
+                .map(|c| {
+                    json::obj(vec![
+                        ("source", json::s(&c.source)),
+                        ("locator", json::s(&c.locator)),
+                    ])
+                })
+                .collect();
+            json::obj(vec![
+                ("agent", json::s(&p.agent_id)),
+                ("claim", json::s(&p.claim_id)),
+                ("stance", json::s(p.stance.as_token())),
+                ("confidence", json::num(p.confidence)),
+                ("note", json::s(&p.note)),
+                ("citations", json::Json::Arr(cites)),
+            ])
