@@ -291,3 +291,21 @@ fn inspect_json(delib: &quorumforge::Deliberation) -> String {
                 ("note", json::s(&p.note)),
                 ("citations", json::Json::Arr(cites)),
             ])
+        })
+        .collect();
+    let doc = json::obj(vec![
+        ("id", json::s(&delib.id)),
+        ("question", json::s(&delib.question)),
+        ("agents", json::Json::Arr(agents)),
+        ("claims", json::Json::Arr(claims)),
+        ("positions", json::Json::Arr(positions)),
+    ]);
+    json::to_string_pretty(&doc)
+}
+
+fn read_input(input: &str, force_json: bool) -> Result<(String, String), CliError> {
+    if input == "-" {
+        let mut buf = String::new();
+        std::io::stdin()
+            .read_to_string(&mut buf)
+            .map_err(|e| CliError::parse(format!("failed to read stdin: {}", e)))?;
