@@ -279,3 +279,43 @@ fn classify(mass: f64, polarity: f64, dissent_ratio: f64, policy: &Policy) -> Ou
     } else {
         Outcome::Split
     }
+}
+
+/// Adjudicate a whole deliberation.
+pub fn adjudicate(delib: &Deliberation, policy: &Policy) -> Adjudication {
+    let mut verdicts = BTreeMap::new();
+    let mut tally = Tally::default();
+    let mut weighted_cohesion_num = 0.0f64;
+    let mut weighted_cohesion_den = 0.0f64;
+
+    for claim_id in delib.claims.keys() {
+        let verdict = verdict_for(delib, claim_id, policy);
+        match verdict.outcome {
+            Outcome::Consensus => tally.consensus += 1,
+            Outcome::Contested => tally.contested += 1,
+            Outcome::Split => tally.split += 1,
+            Outcome::Unsupported => tally.unsupported += 1,
+        }
+        // Cohesion weights each claim by its decisive mass: heavily-attended
+        // claims move the needle more than sparsely-attended ones. A claim's
+        // per-claim settledness is `|polarity|` (1 = unanimous, 0 = perfectly
+        // split). Unsupported claims contribute no mass and no settledness.
+        weighted_cohesion_num += verdict.polarity.abs() * verdict.decisive_mass;
+        weighted_cohesion_den += verdict.decisive_mass;
+        verdicts.insert(claim_id.clone(), verdict);
+    }
+
+    let cohesion = if weighted_cohesion_den > 0.0 {
+        weighted_cohesion_num / weighted_cohesion_den
+    } else {
+        0.0
+    };
+
+    Adjudication {
+        deliberation_id: delib.id.clone(),
+        question: delib.question.clone(),
+        policy: *policy,
+        verdicts,
+        tally,
+        cohesion,
+    }
