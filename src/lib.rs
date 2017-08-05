@@ -40,3 +40,10 @@
 //! let verdict = &adj.verdicts["c1"];
 //! assert!(verdict.support_mass > verdict.contradiction_mass);
 //! ```
+
+pub mod adjudicate;
+pub mod bundle;
+pub mod json;
+pub mod model;
+pub mod normalize;
+pub mod parse;
