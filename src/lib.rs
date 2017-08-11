@@ -47,3 +47,10 @@ pub mod json;
 pub mod model;
 pub mod normalize;
 pub mod parse;
+pub mod report;
+
+pub use adjudicate::{adjudicate, Adjudication, Outcome, Policy, Verdict};
+pub use bundle::{build as build_bundle, Bundle};
+pub use model::{Agent, Citation, Claim, Deliberation, Position, Stance};
+
+/// The full end-to-end run: parse, normalize, and adjudicate a source string
