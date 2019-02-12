@@ -54,3 +54,19 @@ fn unanimous_support_is_consensus_affirmed() {
             pos("b", "c1", Stance::Support, 1.0),
         ],
     );
+    let v = verdict_for(&d, "c1", &Policy::default());
+    assert_eq!(v.outcome, Outcome::Consensus);
+    assert!(v.affirmed);
+    assert!((v.polarity - 1.0).abs() < 1e-9);
+    assert_eq!(v.supporters, 2);
+    assert_eq!(v.dissenters, 0);
+    assert!((v.dissent_ratio - 0.0).abs() < 1e-9);
+}
+
+#[test]
+fn unanimous_contradiction_is_consensus_negated() {
+    let d = build(
+        vec![agent("a", 1.0), agent("b", 2.0)],
+        vec![claim("c1")],
+        vec![
+            pos("a", "c1", Stance::Contradict, 1.0),
