@@ -119,3 +119,20 @@ fn only_abstentions_is_unsupported() {
     let d = build(
         vec![agent("a", 1.0), agent("b", 1.0)],
         vec![claim("c1")],
+        vec![
+            pos("a", "c1", Stance::Abstain, 0.5),
+            pos("b", "c1", Stance::Abstain, 0.5),
+        ],
+    );
+    let v = verdict_for(&d, "c1", &Policy::default());
+    assert_eq!(v.outcome, Outcome::Unsupported);
+    assert_eq!(v.abstentions, 2);
+    assert_eq!(v.decisive_mass, 0.0);
+}
+
+#[test]
+fn no_positions_at_all_is_unsupported() {
+    let d = build(vec![agent("a", 1.0)], vec![claim("lonely")], vec![]);
+    let v = verdict_for(&d, "lonely", &Policy::default());
+    assert_eq!(v.outcome, Outcome::Unsupported);
+}
