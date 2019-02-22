@@ -168,3 +168,20 @@ fn confidence_is_clamped_defensively() {
     let v = verdict_for(&d, "c1", &Policy::default());
     assert!((v.support_mass - 1.0).abs() < 1e-9, "5.0 clamps to 1.0");
 }
+
+#[test]
+fn cohesion_is_mass_weighted() {
+    // One unanimous heavy claim and one perfectly split light claim.
+    let d = build(
+        vec![agent("a", 4.0), agent("b", 1.0)],
+        vec![claim("heavy"), claim("split")],
+        vec![
+            pos("a", "heavy", Stance::Support, 1.0),
+            pos("b", "split", Stance::Support, 1.0),
+            pos("a", "split", Stance::Contradict, 0.25),
+        ],
+    );
+    let adj = adjudicate(&d, &Policy::default());
+    // heavy: mass 4, polarity 1. split: support 1, contradict 1 -> mass 2,
+    // polarity 0. Cohesion = (1*4 + 0*2) / (4+2) = 4/6 ~= 0.667.
+    assert!((adj.cohesion - (4.0 / 6.0)).abs() < 1e-6);
