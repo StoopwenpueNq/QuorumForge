@@ -13,3 +13,16 @@ fn run(path: &str, src: &str) -> (quorumforge::Deliberation, quorumforge::Adjudi
     let mut d = parse::parse_auto(path, src).unwrap();
     normalize::normalize_deliberation(&mut d);
     let adj = adjudicate(&d, &Policy::default());
+    (d, adj)
+}
+
+#[test]
+fn bundle_is_byte_deterministic() {
+    let (d, adj) = run("cache.qf", CACHE);
+    let b1 = bundle::build(&d, &adj);
+    let b2 = bundle::build(&d, &adj);
+    assert_eq!(bundle::to_json(&b1), bundle::to_json(&b2));
+    assert_eq!(b1.digest, b2.digest);
+}
+
+#[test]
