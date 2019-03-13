@@ -26,3 +26,15 @@ fn bundle_is_byte_deterministic() {
 }
 
 #[test]
+fn bundle_digest_survives_reparse() {
+    let (d, adj) = run("cache.qf", CACHE);
+    let b = bundle::build(&d, &adj);
+    assert!(bundle::verify(&b), "freshly built bundle must verify");
+
+    // Serialise, strip the digest field the way the CLI's `verify` does, and
+    // recompute. This guards the idempotent-number invariant end to end.
+    let out = bundle::to_json(&b);
+    let root = quorumforge::json::parse(&out).unwrap();
+    let entries = root.as_object().unwrap();
+    let stored = root.get("digest").unwrap().as_str().unwrap();
+    let body: Vec<(String, quorumforge::json::Json)> = entries
