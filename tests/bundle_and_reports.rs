@@ -89,3 +89,15 @@ fn migration_sample_parses_and_adjudicates() {
     // m6 is only abstentions.
     assert_eq!(adj.verdicts["m6"].outcome, Outcome::Unsupported);
 }
+
+#[test]
+fn normalization_collapses_hedged_variants() {
+    let (d, _adj) = run("norm.qf", NORM);
+    let n1 = &d.claims["n1"].normalized;
+    let n2 = &d.claims["n2"].normalized;
+    let n3 = &d.claims["n3"].normalized;
+    assert_eq!(n1, n2);
+    assert_eq!(n2, n3);
+    assert_eq!(n1, "the p99 latency is under 200ms");
+}
+
