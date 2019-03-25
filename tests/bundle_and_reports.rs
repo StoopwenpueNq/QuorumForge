@@ -101,3 +101,16 @@ fn normalization_collapses_hedged_variants() {
     assert_eq!(n1, "the p99 latency is under 200ms");
 }
 
+#[test]
+fn normalize_text_expands_contractions() {
+    assert_eq!(normalize_text("It isn't broken."), "it is not broken");
+    assert_eq!(normalize_text("We can't ship."), "we cannot ship");
+}
+
+#[test]
+fn normalize_text_strips_leading_hedges() {
+    assert_eq!(normalize_text("I think that X holds"), "x holds");
+    assert_eq!(normalize_text("Arguably, X holds"), "x holds");
+    assert_eq!(normalize_text("Clearly X holds!"), "x holds");
+}
+
