@@ -45,3 +45,18 @@ agent | a | A | 1.0 | r
 claim | c1 | t | text
 pos   | a | c1 | support | 1.0 | first
 cite  | a | c1 | doc:one | page 3
+cite  | a | c1 | doc:two | page 4
+";
+    let d = parse::parse_lines(src).unwrap();
+    assert_eq!(d.positions[0].citations.len(), 2);
+    assert_eq!(d.positions[0].citations[0].source, "doc:one");
+    assert_eq!(d.positions[0].citations[1].locator, "page 4");
+}
+
+#[test]
+fn escaped_pipe_is_literal() {
+    let src = "\
+delib | d1 | Q
+agent | a | A | 1.0 | r
+claim | c1 | t | a \\| b is a pipe
+pos   | a | c1 | support | 1.0 |
