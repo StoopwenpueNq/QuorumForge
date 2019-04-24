@@ -75,3 +75,17 @@ pos   | a | c1 | maybe | 1.0 |
 ";
     let err = parse::parse_lines(src).unwrap_err();
     assert!(err.message.contains("unknown stance"));
+}
+
+#[test]
+fn position_referencing_unknown_agent_is_rejected() {
+    let src = "\
+delib | d1 | Q
+agent | a | A | 1.0 | r
+claim | c1 | t | text
+pos   | ghost | c1 | support | 1.0 |
+";
+    let err = parse::parse_lines(src).unwrap_err();
+    assert!(err.message.contains("unknown agent"));
+}
+
