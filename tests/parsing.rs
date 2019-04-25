@@ -104,3 +104,18 @@ pos   | a | c1 | support | 2.0 |
 #[test]
 fn missing_delib_header_is_rejected() {
     let src = "agent | a | A | 1.0 | r\n";
+    let err = parse::parse_lines(src).unwrap_err();
+    assert!(err.message.contains("before the 'delib' header"));
+}
+
+#[test]
+fn parses_json_format_equivalently() {
+    let src = r#"
+    {
+      "id": "d1",
+      "question": "Does it work?",
+      "agents": [ { "id": "a", "name": "Alice", "weight": 1.5, "role": "dev" } ],
+      "claims": [ { "id": "c1", "topic": "t", "text": "It works." } ],
+      "positions": [
+        { "agent": "a", "claim": "c1", "stance": "contradict", "confidence": 0.3,
+          "note": "nope", "citations": [ { "source": "s", "locator": "l" } ] }
