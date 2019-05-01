@@ -119,3 +119,18 @@ fn parses_json_format_equivalently() {
       "positions": [
         { "agent": "a", "claim": "c1", "stance": "contradict", "confidence": 0.3,
           "note": "nope", "citations": [ { "source": "s", "locator": "l" } ] }
+      ]
+    }
+    "#;
+    let d = parse::parse_json(src).unwrap();
+    assert_eq!(d.id, "d1");
+    assert_eq!(d.agents["a"].weight, 1.5);
+    assert_eq!(d.positions[0].stance, Stance::Contradict);
+    assert_eq!(d.positions[0].citations.len(), 1);
+}
+
+#[test]
+fn json_roundtrip_is_stable() {
+    let src = r#"{"b":2,"a":[1,2,3],"nested":{"x":true,"y":null},"s":"hi\n"}"#;
+    let parsed = json::parse(src).unwrap();
+    let out1 = json::to_string(&parsed);
