@@ -134,3 +134,17 @@ fn json_roundtrip_is_stable() {
     let src = r#"{"b":2,"a":[1,2,3],"nested":{"x":true,"y":null},"s":"hi\n"}"#;
     let parsed = json::parse(src).unwrap();
     let out1 = json::to_string(&parsed);
+    let reparsed = json::parse(&out1).unwrap();
+    let out2 = json::to_string(&reparsed);
+    assert_eq!(out1, out2, "serialisation must be idempotent");
+    assert_eq!(parsed, reparsed, "value must survive a round trip");
+}
+
+#[test]
+fn json_preserves_object_key_order() {
+    let src = r#"{"zebra":1,"apple":2,"mango":3}"#;
+    let parsed = json::parse(src).unwrap();
+    let out = json::to_string(&parsed);
+    assert_eq!(out, src, "insertion order is preserved for determinism");
+}
+
