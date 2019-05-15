@@ -4,3 +4,8 @@
 # This file exercises consensus, contested, split, and unsupported outcomes.
 #
 # Grammar reminder (see docs/EVIDENCE.md):
+#   delib | <id> | <question>
+#   agent | <id> | <name> | <weight> | <role>
+#   claim | <id> | <topic> | <text>
+#   pos   | <agent> | <claim> | <stance> | <confidence> | <note>
+#   cite  | <agent> | <claim> | <source> | <locator>
