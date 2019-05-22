@@ -20,3 +20,8 @@ agent | dice   | Dice Vardhan   | 0.8 | field-operations
 agent | echo   | Echo Lindqvist | 1.1 | correctness-review
 
 # --- Claims ----------------------------------------------------------------
+claim | c1 | linearizability | Writes to a single key are linearizable.
+claim | c2 | linearizability | Writes across multiple keys are linearizable.
+claim | c3 | recovery        | The cache recovers a consistent state after a node crash.
+claim | c4 | performance     | Coherence traffic stays below 5% of total bandwidth.
+claim | c5 | staleness       | Reads never observe a value older than the last acknowledged write.
