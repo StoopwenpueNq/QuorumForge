@@ -7,3 +7,6 @@
   "bin": {
     "qf-view": "dist/cli.js"
   },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "view": "node dist/cli.js",
