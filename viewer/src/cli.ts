@@ -29,3 +29,18 @@ OPTIONS:
   -o, --output <f>  Write to a file instead of stdout.
   -h, --help        Show this help.
 
+EXAMPLES:
+  quorumforge adjudicate --format json samples/cache-coherence.qf | qf-view -
+  qf-view --html report.json -o council.html
+`;
+
+interface Options {
+  html: boolean;
+  noColor: boolean;
+  width: number;
+  output: string | null;
+  input: string | null;
+}
+
+function parseArgs(argv: string[]): Options {
+  const opts: Options = {
