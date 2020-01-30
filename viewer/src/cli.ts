@@ -73,3 +73,18 @@ function parseArgs(argv: string[]): Options {
         opts.width = Math.floor(n);
         break;
       }
+      case "-o":
+      case "--output":
+        opts.output = argv[++i] ?? null;
+        if (opts.output === null) fail("--output requires a path");
+        break;
+      default:
+        if (arg.startsWith("--")) {
+          fail(`unknown option '${arg}'`);
+        } else if (opts.input === null) {
+          opts.input = arg;
+        } else {
+          fail(`unexpected extra argument '${arg}'`);
+        }
+    }
+  }
