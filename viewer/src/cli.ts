@@ -44,3 +44,17 @@ interface Options {
 
 function parseArgs(argv: string[]): Options {
   const opts: Options = {
+    html: false,
+    noColor: false,
+    width: 60,
+    output: null,
+    input: null,
+  };
+  for (let i = 0; i < argv.length; i++) {
+    const arg = argv[i];
+    switch (arg) {
+      case "-h":
+      case "--help":
+        process.stdout.write(HELP);
+        process.exit(0);
+        break;
