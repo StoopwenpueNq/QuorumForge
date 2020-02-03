@@ -118,3 +118,18 @@ async function main(): Promise<void> {
     fail("no report file given (use '-' for stdin)");
   }
 
+  let raw: string;
+  if (opts.input === "-") {
+    raw = await readStdin();
+  } else {
+    try {
+      raw = readFileSync(opts.input, "utf8");
+    } catch (err) {
+      fail(`cannot read '${opts.input}': ${(err as Error).message}`);
+    }
+  }
+
+  let parsed: unknown;
+  try {
+    parsed = JSON.parse(raw);
+  } catch (err) {
