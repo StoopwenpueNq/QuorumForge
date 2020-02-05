@@ -6,3 +6,8 @@
 declare const process: {
   argv: string[];
   exitCode?: number;
+  exit(code?: number): never;
+  stdin: {
+    on(event: "data", listener: (chunk: string | Uint8Array) => void): void;
+    on(event: "end", listener: () => void): void;
+    setEncoding(encoding: string): void;
