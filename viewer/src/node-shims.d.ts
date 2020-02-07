@@ -11,3 +11,8 @@ declare const process: {
     on(event: "data", listener: (chunk: string | Uint8Array) => void): void;
     on(event: "end", listener: () => void): void;
     setEncoding(encoding: string): void;
+    isTTY?: boolean;
+  };
+  stdout: { write(text: string): boolean };
+  stderr: { write(text: string): boolean };
+};
