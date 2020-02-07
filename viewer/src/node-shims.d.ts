@@ -25,3 +25,8 @@ declare module "node:fs" {
 
 declare module "node:process" {
   const p: typeof process;
+  export default p;
+}
+
+declare module "node:assert/strict" {
+  interface AssertStrict {
