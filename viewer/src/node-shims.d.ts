@@ -16,3 +16,7 @@ declare const process: {
   stdout: { write(text: string): boolean };
   stderr: { write(text: string): boolean };
 };
+
+declare module "node:fs" {
+  export function readFileSync(path: string, encoding: "utf8"): string;
+  export function writeFileSync(path: string, data: string): void;
