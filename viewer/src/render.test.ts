@@ -14,3 +14,16 @@ const SAMPLE: Report = {
     total_claims: 3,
     consensus: 1,
     contested: 1,
+    split: 0,
+    unsupported: 1,
+    cohesion: 0.62,
+  },
+  policy: { consensus_threshold: 0.66, dissent_ceiling: 0.34, minimum_mass: 0 },
+  agents: [
+    { id: "a", name: "Ada", role: "optics", weight: 1.5, influence: 2.1 },
+    { id: "b", name: "Bo", role: "skeptic", weight: 1.0, influence: 0.8 },
+  ],
+  verdicts: [
+    {
+      claim: "c1",
+      text: "The sky scatters blue light.",
