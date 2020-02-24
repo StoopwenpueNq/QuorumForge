@@ -95,3 +95,16 @@ function test(name: string, fn: () => void): void {
     process.exitCode = 1;
   }
 }
+
+test("parseReport accepts a valid report", () => {
+  const r = parseReport(JSON.parse(JSON.stringify(SAMPLE)));
+  assert.equal(r.deliberation_id, "demo");
+  assert.equal(r.verdicts.length, 3);
+});
+
+test("parseReport rejects a wrong schema", () => {
+  assert.throws(() => parseReport({ schema: "nope" }), /unexpected schema/);
+});
+
+test("parseReport rejects a non-object", () => {
+  assert.throws(() => parseReport(42), /must be a JSON object/);
