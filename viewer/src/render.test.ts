@@ -108,3 +108,16 @@ test("parseReport rejects a wrong schema", () => {
 
 test("parseReport rejects a non-object", () => {
   assert.throws(() => parseReport(42), /must be a JSON object/);
+});
+
+test("console output contains outcome labels", () => {
+  const out = renderConsole(SAMPLE, { noColor: true });
+  assert.ok(out.includes("CONSENSUS"));
+  assert.ok(out.includes("CONTESTED"));
+  assert.ok(out.includes("UNSUPPORTED"));
+});
+
+test("console output lists dissenting agents", () => {
+  const out = renderConsole(SAMPLE, { noColor: true });
+  assert.ok(out.includes("dissent: a"), "c2 dissent lists agent a");
+});
