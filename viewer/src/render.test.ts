@@ -121,3 +121,17 @@ test("console output lists dissenting agents", () => {
   const out = renderConsole(SAMPLE, { noColor: true });
   assert.ok(out.includes("dissent: a"), "c2 dissent lists agent a");
 });
+
+test("no-color output has no ANSI escape codes", () => {
+  const out = renderConsole(SAMPLE, { noColor: true });
+  // eslint-disable-next-line no-control-regex
+  assert.ok(!/\x1b\[/.test(out), "should contain no escape sequences");
+});
+
+test("colored output does contain ANSI codes", () => {
+  const out = renderConsole(SAMPLE, { noColor: false });
+  // eslint-disable-next-line no-control-regex
+  assert.ok(/\x1b\[/.test(out), "should contain escape sequences");
+});
+
+test("console output shows the roster with both agents", () => {
