@@ -26,3 +26,19 @@ const OUTCOME_META: Record<
   consensus: { glyph: "◆", color: ANSI.green, label: "CONSENSUS" },
   contested: { glyph: "▲", color: ANSI.red, label: "CONTESTED" },
   split: { glyph: "◈", color: ANSI.yellow, label: "SPLIT" },
+  unsupported: { glyph: "○", color: ANSI.gray, label: "UNSUPPORTED" },
+};
+
+export interface ConsoleOptions {
+  /** Disable ANSI colour codes (for piping to a file). */
+  noColor?: boolean;
+  /** Column width for the claim text column. */
+  width?: number;
+}
+
+/** Render a report as a coloured, fixed-width console digest. */
+export function renderConsole(report: Report, opts: ConsoleOptions = {}): string {
+  const width = opts.width ?? 60;
+  const paint = (code: string, text: string): string =>
+    opts.noColor ? text : `${code}${text}${ANSI.reset}`;
+
