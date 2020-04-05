@@ -141,3 +141,19 @@ function wrap(text: string, width: number): string[] {
       current = word;
     } else if (current.length + 1 + word.length > width) {
       lines.push(current);
+      current = word;
+    } else {
+      current += " " + word;
+    }
+  }
+  if (current) lines.push(current);
+  return lines.length ? lines : [""];
+}
+
+function escapeHtml(text: string): string {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
