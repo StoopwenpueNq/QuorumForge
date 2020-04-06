@@ -174,3 +174,19 @@ export function renderHtml(report: Report): string {
           : v.outcome === "contested"
             ? 5
             : v.outcome === "split"
+              ? 45
+              : 220;
+      const dir =
+        v.outcome === "unsupported" ? "" : v.affirmed ? "affirmed" : "negated";
+      const dissent =
+        v.minority_agents.length > 0
+          ? `<div class="dissent">dissent: ${escapeHtml(
+              v.minority_agents.join(", "),
+            )}</div>`
+          : "";
+      return `      <article class="card" style="--hue:${hue}">
+        <header><span class="pill">${meta.label}${dir ? " · " + dir : ""}</span>
+          <code>${escapeHtml(v.claim)}</code></header>
+        <p class="claim">${escapeHtml(v.text)}</p>
+        <div class="meter" title="polarity ${v.polarity.toFixed(2)}">
+          <span style="width:${((v.polarity + 1) / 2) * 100}%"></span>
