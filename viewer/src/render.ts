@@ -190,3 +190,20 @@ export function renderHtml(report: Report): string {
         <p class="claim">${escapeHtml(v.text)}</p>
         <div class="meter" title="polarity ${v.polarity.toFixed(2)}">
           <span style="width:${((v.polarity + 1) / 2) * 100}%"></span>
+        </div>
+        <dl>
+          <div><dt>polarity</dt><dd>${v.polarity.toFixed(2)}</dd></div>
+          <div><dt>mass</dt><dd>${v.decisive_mass.toFixed(2)}</dd></div>
+          <div><dt>dissent</dt><dd>${(v.dissent_ratio * 100).toFixed(0)}%</dd></div>
+          <div><dt>cites</dt><dd>${v.citations}</dd></div>
+        </dl>${dissent}
+      </article>`;
+    })
+    .join("\n");
+
+  const roster = report.agents
+    .map(
+      (a) =>
+        `        <li><b>${escapeHtml(a.id)}</b> <span>${escapeHtml(
+          a.name,
+        )} · ${escapeHtml(a.role || "—")}</span>
