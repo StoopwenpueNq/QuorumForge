@@ -16,3 +16,13 @@ export interface VerdictView {
   claim: string;
   text: string;
   topic: string;
+  normalized: string;
+  outcome: Outcome;
+  affirmed: boolean;
+  polarity: number;
+  decisive_mass: number;
+  support_mass: number;
+  contradiction_mass: number;
+  dissent_ratio: number;
+  supporters: number;
+  dissenters: number;
