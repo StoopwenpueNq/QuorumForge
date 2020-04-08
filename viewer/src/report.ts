@@ -6,3 +6,13 @@ export type Outcome = "consensus" | "contested" | "split" | "unsupported";
 
 export interface AgentView {
   id: string;
+  name: string;
+  role: string;
+  weight: number;
+  influence: number;
+}
+
+export interface VerdictView {
+  claim: string;
+  text: string;
+  topic: string;
