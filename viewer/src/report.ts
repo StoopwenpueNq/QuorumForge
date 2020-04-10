@@ -26,3 +26,12 @@ export interface VerdictView {
   dissent_ratio: number;
   supporters: number;
   dissenters: number;
+  abstentions: number;
+  citations: number;
+  majority_agents: string[];
+  minority_agents: string[];
+}
+
+export interface ReportSummary {
+  total_claims: number;
+  consensus: number;
