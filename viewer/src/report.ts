@@ -55,3 +55,13 @@ export interface Report {
   policy: Policy;
   agents: AgentView[];
   verdicts: VerdictView[];
+}
+
+/**
+ * Validate an untyped parsed value as a QuorumForge report. Throws a
+ * descriptive error rather than returning a partially-typed object, so the CLI
+ * can fail loudly on malformed input.
+ */
+export function parseReport(value: unknown): Report {
+  if (typeof value !== "object" || value === null) {
+    throw new Error("report must be a JSON object");
