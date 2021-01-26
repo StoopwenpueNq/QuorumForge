@@ -16,3 +16,8 @@ diverse, inclusive, and healthy community.
 
 Examples of behavior that contributes to a positive environment include
 demonstrating empathy and kindness, being respectful of differing opinions,
+giving and gracefully accepting constructive feedback, and focusing on what is
+best for the community.
+
+Examples of unacceptable behavior include trolling, insulting or derogatory
+comments, public or private harassment, publishing others' private information
