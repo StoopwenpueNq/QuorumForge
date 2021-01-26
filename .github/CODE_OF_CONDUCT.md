@@ -21,3 +21,8 @@ best for the community.
 
 Examples of unacceptable behavior include trolling, insulting or derogatory
 comments, public or private harassment, publishing others' private information
+without permission, and other conduct which could reasonably be considered
+inappropriate in a professional setting.
+
+## Enforcement
+
