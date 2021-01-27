@@ -26,3 +26,7 @@ inappropriate in a professional setting.
 
 ## Enforcement
 
+Instances of abusive, harassing, or otherwise unacceptable behavior may be
+reported to the community leaders responsible for enforcement through GitHub by
+opening a confidential report on the repository. All complaints will be
+reviewed and investigated promptly and fairly.
