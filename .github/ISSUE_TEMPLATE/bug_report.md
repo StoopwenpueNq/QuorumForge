@@ -13,3 +13,6 @@ assignees: ""
 **Reproduce**
 
 Smallest record set and the exact command:
+
+```bash
+cargo run --release -- adjudicate samples/normalization.qf
