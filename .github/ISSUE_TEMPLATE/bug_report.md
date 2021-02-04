@@ -10,3 +10,6 @@ assignees: ""
 
 **What you expected**
 
+**Reproduce**
+
+Smallest record set and the exact command:
