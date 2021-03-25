@@ -7,3 +7,4 @@ updates:
   - package-ecosystem: npm
     directory: "/viewer"
     schedule:
+      interval: weekly
