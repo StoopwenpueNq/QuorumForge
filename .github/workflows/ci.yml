@@ -15,3 +15,12 @@ jobs:
 
       - name: Install Rust toolchain
         run: rustup toolchain install stable --profile minimal --component rustfmt clippy
+
+      - name: Cache cargo
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            target
+          key: ${{ runner.os }}-cargo-${{ hashFiles('Cargo.toml') }}
