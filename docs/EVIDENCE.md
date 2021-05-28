@@ -92,3 +92,18 @@ pos  | ben | r2 | contradict | 0.6 | the dry run skipped the data migration
 ---
 
 ## 3. JSON format (`.json`)
+
+A single object with these top-level keys:
+
+| Key         | Type    | Required | Notes                                    |
+|-------------|---------|----------|------------------------------------------|
+| `id`        | string  | no       | Defaults to `"unnamed"`.                 |
+| `question`  | string  | no       | Defaults to empty.                       |
+| `agents`    | array   | no       | Array of agent objects.                  |
+| `claims`    | array   | no       | Array of claim objects.                  |
+| `positions` | array   | no       | Array of position objects.               |
+
+### 3.1 Object shapes
+
+```jsonc
+// agent
