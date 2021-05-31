@@ -122,3 +122,18 @@ A single object with these top-level keys:
   "citations": [
     { "source": "tracker:P0", "locator": "filter status=closed -> 0 rows" }
   ]
+}
+```
+
+Field defaults match the line format: `weight` and `confidence` default to
+`1.0`; `role`, `note`, `topic`, `source`, and `locator` default to empty;
+`citations` defaults to an empty list.
+
+### 3.2 Equivalent example
+
+```json
+{
+  "id": "demo",
+  "question": "Is the release ready to ship?",
+  "agents": [
+    { "id": "ana", "name": "Ana Ito", "weight": 1.4, "role": "release-manager" },
