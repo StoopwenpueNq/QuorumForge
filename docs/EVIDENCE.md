@@ -107,3 +107,18 @@ A single object with these top-level keys:
 
 ```jsonc
 // agent
+{ "id": "ana", "name": "Ana Ito", "weight": 1.4, "role": "release-manager" }
+
+// claim
+{ "id": "r1", "topic": "quality", "text": "All P0 bugs are resolved." }
+
+// position
+{
+  "agent": "ana",
+  "claim": "r1",
+  "stance": "support",          // support | contradict | abstain (+ synonyms)
+  "confidence": 0.9,            // [0.0, 1.0]
+  "note": "burn-down at zero",
+  "citations": [
+    { "source": "tracker:P0", "locator": "filter status=closed -> 0 rows" }
+  ]
