@@ -166,3 +166,18 @@ descriptive error if:
 
 These checks catch the most common authoring mistakes — typo'd ids and
 out-of-range confidences — before they silently drop votes.
+
+---
+
+## 5. Normalization
+
+Before adjudication, every claim's text is reduced to a canonical
+`normalized` form used for grouping near-duplicate claims. Normalization:
+
+1. lower-cases and collapses runs of whitespace;
+2. strips trailing sentence punctuation (`. ! ? ;`);
+3. removes a single leading hedge (`I think`, `arguably`, `clearly`, …) when it
+   forms a whole leading word;
+4. expands a fixed set of contractions (`isn't` → `is not`, `can't` → `cannot`,
+   …) so negated variants align.
+
