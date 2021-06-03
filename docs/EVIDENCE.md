@@ -151,3 +151,18 @@ Field defaults match the line format: `weight` and `confidence` default to
 }
 ```
 
+---
+
+## 4. Validation
+
+After parsing, QuorumForge validates the deliberation and rejects it with a
+descriptive error if:
+
+- there is no `delib`/top-level object;
+- a position references an agent id that was never declared;
+- a position references a claim id that was never declared;
+- a confidence falls outside `[0.0, 1.0]`;
+- a `cite` (line format) has no matching position.
+
+These checks catch the most common authoring mistakes — typo'd ids and
+out-of-range confidences — before they silently drop votes.
