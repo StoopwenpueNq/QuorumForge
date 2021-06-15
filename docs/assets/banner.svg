@@ -13,3 +13,6 @@
   <g stroke="#201d38" stroke-width="1">
     <path d="M0 65 H960 M0 130 H960 M0 195 H960 M240 0 V260 M480 0 V260 M720 0 V260"/>
   </g>
+  <text x="48" y="92" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="40" font-weight="700" fill="#f2f0ff">QuorumForge</text>
+  <text x="48" y="122" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="15" fill="#a49dd8">evidence held to the light: claims, support, contradiction, verdict</text>
+  <g transform="translate(48 150)">
