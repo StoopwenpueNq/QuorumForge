@@ -16,3 +16,7 @@
   <text x="48" y="92" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="40" font-weight="700" fill="#f2f0ff">QuorumForge</text>
   <text x="48" y="122" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="15" fill="#a49dd8">evidence held to the light: claims, support, contradiction, verdict</text>
   <g transform="translate(48 150)">
+    <line x1="0" y1="40" x2="150" y2="40" stroke="url(#ray)" stroke-width="2"/>
+    <polygon points="150,10 190,70 110,70" fill="#1c1930" stroke="#5a51a0"/>
+    <line x1="190" y1="30" x2="300" y2="12" stroke="#e0a944" stroke-width="2"/>
+    <line x1="190" y1="40" x2="300" y2="40" stroke="#3fb6a8" stroke-width="2"/>
