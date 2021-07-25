@@ -234,3 +234,38 @@ fn verdict_report_json(delib: &Deliberation, v: &Verdict) -> Json {
             json::s(claim.map(|c| c.text.clone()).unwrap_or_default()),
         ),
         (
+            "topic",
+            json::s(claim.map(|c| c.topic.clone()).unwrap_or_default()),
+        ),
+        ("normalized", json::s(&v.normalized)),
+        ("outcome", json::s(v.outcome.as_token())),
+        ("affirmed", Json::Bool(v.affirmed)),
+        ("polarity", json::num(round6(v.polarity))),
+        ("decisive_mass", json::num(round6(v.decisive_mass))),
+        ("support_mass", json::num(round6(v.support_mass))),
+        (
+            "contradiction_mass",
+            json::num(round6(v.contradiction_mass)),
+        ),
+        ("dissent_ratio", json::num(round6(v.dissent_ratio))),
+        ("supporters", json::num(v.supporters as f64)),
+        ("dissenters", json::num(v.dissenters as f64)),
+        ("abstentions", json::num(v.abstentions as f64)),
+        ("citations", json::num(v.citation_count as f64)),
+        (
+            "majority_agents",
+            Json::Arr(v.majority_agents.iter().map(json::s).collect()),
+        ),
+        (
+            "minority_agents",
+            Json::Arr(v.minority_agents.iter().map(json::s).collect()),
+        ),
+    ])
+}
+
+fn round6(x: f64) -> f64 {
+    if x.is_finite() {
+        (x * 1_000_000.0).round() / 1_000_000.0
+    } else {
+        0.0
+    }
