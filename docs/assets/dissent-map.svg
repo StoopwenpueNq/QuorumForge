@@ -6,3 +6,10 @@
     <radialGradient id="bg2" cx="0.5" cy="0.45" r="0.7">
       <stop offset="0" stop-color="#1a1240"/>
       <stop offset="1" stop-color="#08050f"/>
+    </radialGradient>
+    <radialGradient id="orb" cx="0.4" cy="0.35" r="0.7">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="0.5" stop-color="#7c5cff"/>
+      <stop offset="1" stop-color="#2a1d66"/>
+    </radialGradient>
+    <filter id="soft" x="-50%" y="-50%" width="200%" height="200%">
