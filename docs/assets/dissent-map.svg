@@ -21,3 +21,10 @@
   <rect width="640" height="360" fill="url(#bg2)"/>
 
   <!-- concentric consensus rings -->
+  <g fill="none" stroke="#cdbbff" stroke-opacity="0.12">
+    <circle cx="320" cy="180" r="60"/>
+    <circle cx="320" cy="180" r="110"/>
+    <circle cx="320" cy="180" r="150">
+      <animate attributeName="stroke-opacity" values="0.05;0.2;0.05" dur="6s" repeatCount="indefinite"/>
+    </circle>
+  </g>
