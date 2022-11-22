@@ -392,4 +392,4 @@ the release history.
 
 </div>
 
-<!-- draft note 677 -->
+<!-- draft note 678 -->
