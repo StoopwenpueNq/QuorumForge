@@ -3,3 +3,5 @@
 version = 3
 
 [[package]]
+name = "quorumforge"
+version = "1.0.0"
