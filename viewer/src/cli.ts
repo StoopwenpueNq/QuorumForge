@@ -133,3 +133,31 @@ async function main(): Promise<void> {
   try {
     parsed = JSON.parse(raw);
   } catch (err) {
+    fail(`input is not valid JSON: ${(err as Error).message}`);
+  }
+
+  let report;
+  try {
+    report = parseReport(parsed);
+  } catch (err) {
+    fail((err as Error).message);
+  }
+
+  const rendered = opts.html
+    ? renderHtml(report)
+    : renderConsole(report, {
+        noColor: opts.noColor || opts.output !== null,
+        width: opts.width,
+      });
+
+  if (opts.output) {
+    writeFileSync(opts.output, rendered);
+  } else {
+    process.stdout.write(rendered);
+  }
+}
+
+main().catch((err) => {
+  process.stderr.write(`qf-view: ${(err as Error).message}\n`);
+  process.exit(1);
+});
