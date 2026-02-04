@@ -28,3 +28,10 @@
   <g transform="translate(560 60)">
     <text x="0" y="0" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#8d86c0">engine</text>
     <text x="0" y="24" font-family="Consolas, Menlo, monospace" font-size="14" fill="#e6e3f7">adjudicate | bundle | verify</text>
+    <text x="0" y="52" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#8d86c0">determinism</text>
+    <text x="0" y="76" font-family="Consolas, Menlo, monospace" font-size="14" fill="#e6e3f7">same input, byte-identical report</text>
+    <text x="0" y="108" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="13" fill="#8d86c0">exit codes</text>
+    <text x="0" y="132" font-family="Consolas, Menlo, monospace" font-size="14" fill="#e6e3f7">0 clean | 1 findings | 2 usage</text>
+  </g>
+  <text x="48" y="248" font-family="Segoe UI, Helvetica, Arial, sans-serif" font-size="12" fill="#5d5788">rust engine | typescript viewer | dependency-free</text>
+</svg>
