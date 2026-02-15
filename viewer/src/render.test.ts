@@ -135,3 +135,30 @@ test("colored output does contain ANSI codes", () => {
 });
 
 test("console output shows the roster with both agents", () => {
+  const out = renderConsole(SAMPLE, { noColor: true });
+  assert.ok(out.includes("Ada"));
+  assert.ok(out.includes("Bo"));
+});
+
+test("html output is a self-contained document", () => {
+  const html = renderHtml(SAMPLE);
+  assert.ok(html.startsWith("<!DOCTYPE html>"));
+  assert.ok(html.includes("<style>"), "styles are inlined");
+  assert.ok(!/https?:\/\//.test(html), "no remote resources referenced");
+  assert.ok(html.includes("The sky scatters blue light."));
+});
+
+test("html escapes angle brackets in claim text", () => {
+  const injected: Report = JSON.parse(JSON.stringify(SAMPLE));
+  injected.verdicts[0].text = "1 < 2 && 3 > 2";
+  const html = renderHtml(injected);
+  assert.ok(html.includes("1 &lt; 2 &amp;&amp; 3 &gt; 2"));
+  assert.ok(!html.includes("1 < 2 &&"));
+});
+
+test("renderers are deterministic", () => {
+  assert.equal(renderConsole(SAMPLE, {}), renderConsole(SAMPLE, {}));
+  assert.equal(renderHtml(SAMPLE), renderHtml(SAMPLE));
+});
+
+process.stdout.write(`\n${passed} viewer test(s) passed\n`);
