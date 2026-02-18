@@ -65,3 +65,20 @@ export interface Report {
 export function parseReport(value: unknown): Report {
   if (typeof value !== "object" || value === null) {
     throw new Error("report must be a JSON object");
+  }
+  const obj = value as Record<string, unknown>;
+  if (obj.schema !== "quorumforge.report.v1") {
+    throw new Error(
+      `unexpected schema '${String(obj.schema)}', expected quorumforge.report.v1`,
+    );
+  }
+  if (!Array.isArray(obj.verdicts)) {
+    throw new Error("report is missing a 'verdicts' array");
+  }
+  if (!Array.isArray(obj.agents)) {
+    throw new Error("report is missing an 'agents' array");
+  }
+  // The shape is trusted beyond the top-level guards; the Rust emitter is the
+  // single source of truth for field presence.
+  return obj as unknown as Report;
+}
