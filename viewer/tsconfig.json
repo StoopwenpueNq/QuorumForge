@@ -14,3 +14,8 @@
     "exactOptionalPropertyTypes": false,
     "forceConsistentCasingInFileNames": true,
     "declaration": true,
+    "sourceMap": false,
+    "skipLibCheck": true
+  },
+  "include": ["src/**/*.ts"]
+}
