@@ -313,3 +313,48 @@ pub fn parse_json(contents: &str) -> Result<Deliberation, ParseError> {
     Ok(delib)
 }
 
+fn str_field(value: &Json, key: &str) -> Option<String> {
+    value.get(key).and_then(Json::as_str).map(|s| s.to_string())
+}
+
+fn field_err(field: &str) -> ParseError {
+    ParseError {
+        line: 0,
+        message: format!("missing required field '{}'", field),
+    }
+}
+
+/// Post-parse structural validation: every position must reference known agents
+/// and claims. This catches typos before they silently drop votes.
+pub fn validate(delib: &Deliberation) -> Result<(), ParseError> {
+    for pos in &delib.positions {
+        if !delib.agents.contains_key(&pos.agent_id) {
+            return Err(ParseError {
+                line: 0,
+                message: format!(
+                    "position references unknown agent '{}' on claim '{}'",
+                    pos.agent_id, pos.claim_id
+                ),
+            });
+        }
+        if !delib.claims.contains_key(&pos.claim_id) {
+            return Err(ParseError {
+                line: 0,
+                message: format!(
+                    "position by '{}' references unknown claim '{}'",
+                    pos.agent_id, pos.claim_id
+                ),
+            });
+        }
+        if !(0.0..=1.0).contains(&pos.confidence) {
+            return Err(ParseError {
+                line: 0,
+                message: format!(
+                    "confidence {} for agent '{}' on claim '{}' is outside [0,1]",
+                    pos.confidence, pos.agent_id, pos.claim_id
+                ),
+            });
+        }
+    }
+    Ok(())
+}
