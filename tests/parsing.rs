@@ -148,3 +148,33 @@ fn json_preserves_object_key_order() {
     assert_eq!(out, src, "insertion order is preserved for determinism");
 }
 
+#[test]
+fn json_handles_unicode_escapes() {
+    let src = r#""caf\u00e9 \ud83d\ude00""#;
+    let parsed = json::parse(src).unwrap();
+    assert_eq!(parsed.as_str().unwrap(), "café 😀");
+}
+
+#[test]
+fn json_rejects_trailing_garbage() {
+    assert!(json::parse("{} oops").is_err());
+    assert!(json::parse("[1,2,").is_err());
+}
+
+#[test]
+fn integral_floats_serialize_without_decimal() {
+    let v = Json::Num(42.0);
+    assert_eq!(json::to_string(&v), "42");
+    let v = Json::Num(1.5);
+    assert_eq!(json::to_string(&v), "1.5");
+}
+
+#[test]
+fn tiny_values_snap_and_round_trip() {
+    // 1e-9 rounds to 0 on the six-decimal grid; the writer must be idempotent.
+    let v = Json::Num(1e-9);
+    let out1 = json::to_string(&v);
+    let reparsed = json::parse(&out1).unwrap();
+    let out2 = json::to_string(&reparsed);
+    assert_eq!(out1, out2);
+}
