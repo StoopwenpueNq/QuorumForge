@@ -201,3 +201,39 @@ fn policy_thresholds_change_classification() {
     // tolerance so the same votes read as Consensus.
     let lenient = Policy {
         consensus_threshold: 0.3,
+        dissent_ceiling: 0.5,
+        minimum_mass: 0.0,
+    };
+    let v = verdict_for(&d, "c1", &lenient);
+    assert_eq!(v.outcome, Outcome::Consensus);
+}
+
+#[test]
+fn tally_counts_every_outcome_once() {
+    let d = build(
+        vec![agent("a", 1.0), agent("b", 1.0)],
+        vec![claim("con"), claim("cont"), claim("unsup")],
+        vec![
+            pos("a", "con", Stance::Support, 1.0),
+            pos("b", "con", Stance::Support, 1.0),
+            pos("a", "cont", Stance::Support, 1.0),
+            pos("b", "cont", Stance::Contradict, 1.0),
+            pos("a", "unsup", Stance::Abstain, 0.5),
+        ],
+    );
+    let adj = adjudicate(&d, &Policy::default());
+    assert_eq!(adj.tally.consensus, 1);
+    assert_eq!(adj.tally.contested, 1);
+    assert_eq!(adj.tally.unsupported, 1);
+    assert_eq!(adj.tally.total(), 3);
+}
+
+#[test]
+fn policy_validation_rejects_out_of_range() {
+    let bad = Policy {
+        consensus_threshold: 1.5,
+        ..Policy::default()
+    };
+    assert!(bad.validate().is_err());
+    assert!(Policy::default().validate().is_ok());
+}
