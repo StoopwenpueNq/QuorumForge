@@ -47,3 +47,14 @@ pos  | dice | c2 | contradict | 0.65 | saw a matching anomaly in staging once
 # --- Positions: c3 (expect split — leans but not decisive) -----------------
 pos  | ada  | c3 | support    | 0.55 | recovery log replay is deterministic
 pos  | dice | c3 | support    | 0.60 | crash drills mostly recovered cleanly
+pos  | boro | c3 | contradict | 0.40 | one drill left an orphaned dirty page
+
+# --- Positions: c4 (expect split / performance leaning) --------------------
+pos  | boro | c4 | contradict | 0.85 | measured 8% coherence traffic at peak
+cite | boro | c4 | bench:peak-load-2024 | mean 8.1%, p99 12%
+pos  | dice | c4 | support    | 0.45 | typical load stayed under 5%
+pos  | ada  | c4 | abstain    | 0.50 | depends heavily on workload shape
+
+# --- Positions: c5 (expect unsupported — only abstentions) -----------------
+pos  | echo | c5 | abstain    | 0.50 | needs a dedicated staleness harness
+pos  | dice | c5 | abstain    | 0.50 | no instrumentation for acknowledged-write ordering
