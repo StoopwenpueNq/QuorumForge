@@ -167,3 +167,31 @@ fn round6(x: f64) -> f64 {
 
 /// Serialise a bundle to canonical pretty JSON, including the digest field.
 pub fn to_json(bundle: &Bundle) -> String {
+    let body = canonical_body(&bundle.deliberation, &bundle.adjudication);
+    // Re-wrap with the digest as the first field so it is easy to spot.
+    let mut entries = vec![("digest".to_string(), json::s(&bundle.digest))];
+    if let Json::Obj(inner) = body {
+        entries.extend(inner);
+    }
+    json::to_string_pretty(&Json::Obj(entries))
+}
+
+/// Verify a bundle's digest matches its body. Returns `true` when intact.
+pub fn verify(bundle: &Bundle) -> bool {
+    let body = canonical_body(&bundle.deliberation, &bundle.adjudication);
+    let text = json::to_string(&body);
+    fnv1a_hex(text.as_bytes()) == bundle.digest
+}
+
+/// FNV-1a 64-bit hash rendered as 16 lowercase hex digits. Small, fast, and
+/// entirely sufficient for a content-drift fingerprint (not a security hash).
+pub fn fnv1a_hex(bytes: &[u8]) -> String {
+    const OFFSET: u64 = 0xcbf29ce484222325;
+    const PRIME: u64 = 0x100000001b3;
+    let mut hash = OFFSET;
+    for &b in bytes {
+        hash ^= b as u64;
+        hash = hash.wrapping_mul(PRIME);
+    }
+    format!("{:016x}", hash)
+}
