@@ -127,3 +127,28 @@ fn normalize_text_keeps_boundary_words() {
 fn clustering_groups_synonymous_claims() {
     let (d, _adj) = run("norm.qf", NORM);
     let clusters = normalize::cluster_by_normalized(&d);
+    let group = clusters
+        .get("the p99 latency is under 200ms")
+        .expect("cluster exists");
+    assert_eq!(group.len(), 3);
+    assert_eq!(
+        group,
+        &vec!["n1".to_string(), "n2".to_string(), "n3".to_string()]
+    );
+}
+
+#[test]
+fn similarity_is_jaccard_over_tokens() {
+    assert!((similarity("a b c", "a b c") - 1.0).abs() < 1e-9);
+    assert!((similarity("a b", "c d") - 0.0).abs() < 1e-9);
+    // {a,b,c} vs {a,b} -> intersection 2, union 3.
+    assert!((similarity("a b c", "a b") - 2.0 / 3.0).abs() < 1e-9);
+}
+
+#[test]
+fn end_to_end_run_matches_direct_pipeline() {
+    let (_d, adj_direct) = run("cache.qf", CACHE);
+    let (_d2, adj_lib) = quorumforge::run("cache.qf", CACHE, &Policy::default()).unwrap();
+    assert_eq!(adj_direct.verdicts, adj_lib.verdicts);
+    assert_eq!(adj_direct.cohesion, adj_lib.cohesion);
+}
