@@ -319,3 +319,4 @@ pub fn adjudicate(delib: &Deliberation, policy: &Policy) -> Adjudication {
         tally,
         cohesion,
     }
+}
