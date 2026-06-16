@@ -133,3 +133,26 @@ pub struct Deliberation {
 }
 
 impl Deliberation {
+    /// Create an empty deliberation with the given id and question.
+    pub fn new(id: impl Into<String>, question: impl Into<String>) -> Self {
+        Deliberation {
+            id: id.into(),
+            question: question.into(),
+            agents: BTreeMap::new(),
+            claims: BTreeMap::new(),
+            positions: Vec::new(),
+        }
+    }
+
+    /// All positions that address a given claim.
+    pub fn positions_for<'a>(&'a self, claim_id: &'a str) -> impl Iterator<Item = &'a Position> {
+        self.positions
+            .iter()
+            .filter(move |p| p.claim_id == claim_id)
+    }
+
+    /// The weight assigned to an agent, defaulting to `1.0` when unknown.
+    pub fn agent_weight(&self, agent_id: &str) -> f64 {
+        self.agents.get(agent_id).map(|a| a.weight).unwrap_or(1.0)
+    }
+}
