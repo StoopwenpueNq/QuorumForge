@@ -54,3 +54,16 @@ pub use bundle::{build as build_bundle, Bundle};
 pub use model::{Agent, Citation, Claim, Deliberation, Position, Stance};
 
 /// The full end-to-end run: parse, normalize, and adjudicate a source string
+/// whose format is inferred from `path`. Returns the deliberation together with
+/// its adjudication so callers can render whichever report they need.
+pub fn run(
+    path: &str,
+    contents: &str,
+    policy: &Policy,
+) -> Result<(Deliberation, Adjudication), Box<dyn std::error::Error>> {
+    policy.validate()?;
+    let mut delib = parse::parse_auto(path, contents)?;
+    normalize::normalize_deliberation(&mut delib);
+    let adj = adjudicate::adjudicate(&delib, policy);
+    Ok((delib, adj))
+}
