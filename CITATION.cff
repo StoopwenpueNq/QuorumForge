@@ -1,0 +1,10 @@
+cff-version: 1.2.0
+message: "If you use this tool, please cite it as below."
+title: "QuorumForge"
+abstract: "Multi-agent evidence adjudication engine with deterministic verdicts."
+type: software
+license: MIT
+authors:
+  - name: QuorumForge contributors
+version: 1.0.0
+date-released: 2026-06-09
