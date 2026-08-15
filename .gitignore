@@ -1,0 +1,26 @@
+# Rust
+/target
+**/*.rs.bk
+*.pdb
+
+# Cargo: this is a binary+library workspace; committing the lockfile is
+# reasonable, but we keep it out here since the crate has zero dependencies
+# and the lockfile would be trivially empty and pure noise.
+Cargo.lock
+
+# TypeScript viewer
+viewer/node_modules
+viewer/dist
+viewer/*.tsbuildinfo
+
+# Generated artifacts from example commands in the README
+/bundle.json
+/council.html
+*.report.json
+
+# Editor / OS cruft
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
