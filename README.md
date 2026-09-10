@@ -391,5 +391,3 @@ the release history.
 *Bring the argument. QuorumForge brings the light.*
 
 </div>
-
-<!-- draft note 1327 -->
