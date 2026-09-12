@@ -11,3 +11,7 @@
 
 QuorumForge reads text records; it makes no network calls and executes nothing.
 If you find a security issue, report it privately with GitHub's "Report a
+vulnerability" button on the Security tab.
+
+We aim to acknowledge reports within 72 hours and to ship a fix in the next
+patch release.
