@@ -67,3 +67,15 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Parser for the deliberation format, one record per line.
 - `version` subcommand and the first output shape.
 
+## [0.2.0] - 2016-11-15
+
+### Added
+
+- Strict validation for record kinds and ids.
+- A sample deliberation and a smoke run.
+
+## [0.1.0] - 2015-11-24
+
+### Added
+
+- First release: record model and a line oriented report with a findings total.
