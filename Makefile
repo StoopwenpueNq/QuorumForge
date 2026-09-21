@@ -62,3 +62,14 @@ demo: build
 
 .PHONY: bundle
 bundle: build-rust
+	$(CARGO) run --release -- bundle $(SAMPLE_QF) -o bundle.json
+	$(CARGO) run --release -- verify bundle.json
+
+.PHONY: fmt
+fmt:
+	$(CARGO) fmt
+
+.PHONY: clean
+clean:
+	$(CARGO) clean
+	rm -rf viewer/node_modules viewer/dist bundle.json council.html
