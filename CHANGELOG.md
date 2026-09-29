@@ -8,6 +8,7 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 ### Changed
 
 - Rule tables are being reorganised for the next patch.
+- A policy profile is being sketched for teams.
 
 ## [1.0.0] - 2026-06-09
 
