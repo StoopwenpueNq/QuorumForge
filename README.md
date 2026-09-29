@@ -37,6 +37,9 @@ You can commit a verdict to version control and diff it next week.
 
 ## Why a prism?
 
+A verdict is not a score; it is what is left after support and
+contradiction pass through the same claim. The prism is the honest metaphor: the input is one beam, and the output is the separated evidence.
+
 White light looks like a single, undifferentiated thing until a prism teases it
 apart. A pile of agent opinions is the same: it *feels* like noise until you
 separate it by direction and strength. QuorumForge's prism has exactly four
