@@ -10,6 +10,31 @@ The format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/).
 - Rule tables are being reorganised for the next patch.
 - A policy profile is being sketched for teams.
 
+## [5.4.0] - 2026-08-23
+
+### Added
+
+- A compact one-screen verdict summary in the viewer.
+
+## [4.4.0] - 2026-08-11
+
+### Added
+
+- Policy profiles pinning which sources count as primary.
+
+## [3.5.0] - 2026-08-09
+
+### Added
+
+- The bundle carries a manifest with per-claim hashes.
+
+## [2.0.0] - 2026-08-08
+
+### Added
+
+- The report carries a `sources` block naming every source per claim.
+- Fixtures for the contradiction-only verdict.
+
 ## [1.0.0] - 2026-06-09
 
 ### Added
