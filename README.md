@@ -56,6 +56,9 @@ claim has *no* backing is often as valuable as knowing it is true.
 
 ## Anatomy of the light
 
+Each record is a claim with sources. Normalization happens
+first, then weighing, then the verdict; the order is fixed so two runs agree.
+
 QuorumForge is a small, sharp, mixed-language toolkit with no third-party
 dependencies on either side of the fence.
 
