@@ -132,6 +132,9 @@ Council cohesion: 60.1%   Policy: consensus>=0.66, dissent<0.34
 
 ## The council viewer
 
+The viewer reads the engine's JSON report and renders it twice:
+an ANSI council for the terminal and a self-contained HTML page for an archive.
+
 The prism is prettiest when you let the viewer render it. Build it once, then
 pipe a JSON report straight in.
 
