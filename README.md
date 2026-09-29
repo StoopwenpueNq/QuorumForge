@@ -159,6 +159,9 @@ cd viewer && npm test
 
 ## The command-line tool
 
+Every subcommand is offline and deterministic: adjudicate,
+bundle, verify and version. Nothing here talks to a model or a network service.
+
 ```text
 quorumforge <command> [options] <evidence-file | ->
 
